@@ -2,160 +2,126 @@
 <html lang="id" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Undangan Wisuda XXVII - SPJ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Wisuda - SMA Plus Pembangunan Jaya</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root { --gold: #BF9B30; --navy: #1A365D; --cream: #FAF6ED; }
-    body, html { height: 100%; margin: 0; background: var(--cream); color: var(--navy); overflow: hidden; font-family: 'Lora', serif; }
-
-    /* Animasi Masuk Konten */
-    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    /* Pakai Style Asli Kamu */
+    .batik-border-left { position: fixed; top: 0; left: 0; width: 80px; height: 100%; z-index: 40; pointer-events: none; }
+    .page { min-height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 24px 32px; position: relative; max-width: 320px; margin: 0 auto; }
+    .page.active { display: flex; animation: fadeInUp 0.8s ease forwards; }
     
-    .page-content { opacity: 0; }
-    .active .page-content { animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 0.4s; }
-
-    /* Overlay Transisi Antar Halaman */
-    #transitionLayer {
-      position: fixed; inset: 0; background: var(--gold); z-index: 80;
-      transform: translateX(100%); transition: transform 0.5s ease-in-out;
-    }
-    #transitionLayer.active { transform: translateX(0); }
-
-    /* Overlay Pembuka */
-    #welcomeOverlay { 
-      position: fixed; inset: 0; background: var(--cream); z-index: 100; 
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    /* Animasi Masuk */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .batik-sidebar { position: fixed; top: 0; left: 0; width: 45px; height: 100%; z-index: 40; opacity: 0.8; }
+    .gold-divider { width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #BF9B30, transparent); margin: 12px auto; }
+    .btn-nav { padding: 8px 20px; border: 1px solid #BF9B30; color: #BF9B30; border-radius: 4px; font-family: 'Cormorant Garamond', serif; cursor: pointer; background: transparent; text-transform: uppercase; font-weight: bold; }
     
-    .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px 20px 20px 65px; text-align: center; }
-    .page.active { display: flex; }
-
-    .btn-gold { 
-      padding: 12px 30px; border: 2px solid var(--gold); color: var(--gold); 
-      font-weight: 700; border-radius: 8px; background: white; transition: 0.3s;
-    }
-    .btn-gold:active { transform: scale(0.9); background: var(--gold); color: white; }
-
-    .card-info { background: white; border: 1px solid var(--gold); border-radius: 12px; padding: 15px; width: 100%; max-width: 280px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin: 15px 0; }
+    /* Overlay Pembuka agar Lagu Jalan */
+    #welcome { position: fixed; inset: 0; background: #FAF6ED; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
   </style>
 </head>
-<body>
+<body class="h-full" style="background:#FAF6ED; margin:0;">
 
-  <!-- Efek Transisi -->
-  <div id="transitionLayer"></div>
+  <!-- OVERLAY PEMBUKA (Pemicu Lagu) -->
+  <div id="welcome">
+    <div class="flex gap-4 mb-6">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" style="width: 100px;">
+        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" style="width: 100px;">
+    </div>
+    <h1 style="font-family:'Playfair Display'; color:#BF9B30; font-size: 24px; margin-bottom: 20px;">Undangan Wisuda XXVII</h1>
+    <button onclick="startUndangan()" class="btn-nav">Buka Undangan</button>
+  </div>
 
-  <!-- Audio -->
+  <div class="batik-border-left">
+    <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" style="width:100%; height:100%; object-fit:cover;">
+  </div>
+
   <audio id="bgMusic" loop>
     <source src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Layar Pembuka -->
-  <div id="welcomeOverlay">
-    <div style="animation: scaleIn 1s forwards;">
-      <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-28 mx-auto mb-6">
-      <h2 class="text-2xl font-bold mb-2" style="font-family:'Playfair Display'">Undangan Wisuda</h2>
-      <p class="italic mb-8 opacity-70">SMA Plus Pembangunan Jaya</p>
-      <button onclick="startApp()" class="btn-gold shadow-xl">Buka Undangan</button>
-    </div>
-  </div>
-
-  <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-sidebar">
-
-  <main id="mainContent">
+  <main id="appWrapper">
     <!-- HALAMAN 1 -->
-    <section class="page active" id="page0">
-      <div class="page-content">
-        <div class="flex gap-4 justify-center mb-6">
-          <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
-          <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16">
-        </div>
-        <h1 class="text-5xl font-black mb-2" style="font-family:'Playfair Display'; color: var(--gold);">Wisuda</h1>
-        <p class="font-bold text-sm tracking-widest mb-6">SMA PLUS PEMBANGUNAN JAYA</p>
-        
-        <p class="italic text-xs mb-1">Yth. Bapak/Ibu Orang Tua</p>
-        <p id="studentName" class="text-2xl font-bold mb-4">[Nama Siswa]</p>
-
-        <div class="card-info">
-          <p class="font-bold">Sabtu, 23 Mei 2026</p>
-          <p class="text-gold font-bold">07.30 – 11.55 WIB</p>
-          <hr class="my-2">
-          <p class="text-xs font-bold">MPH SMA Plus Pembangunan Jaya</p>
-        </div>
-        
-        <button class="btn-gold mt-6" onclick="changePage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4"></i></button>
+    <div class="page active" id="page0">
+      <div class="flex items-center gap-3 mb-4">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" style="width:160px;"> <!-- LOGO BESAR -->
+        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" style="width:160px;">
       </div>
-    </section>
+      
+      <h1 style="font-family:'Playfair Display'; font-size:48px; font-weight:900; color:#BF9B30; margin:0;">Wisuda</h1>
+      <div class="gold-divider"></div>
+      
+      <p style="font-family:'Cormorant Garamond'; font-size:16px; color:#1A365D; text-align:center;">
+        SMA Plus Pembangunan Jaya<br>
+        Angkatan XXVII (Virentara)<br>
+        Tahun Ajaran 2025/2026
+      </p>
 
-    <!-- HALAMAN 2 -->
-    <section class="page" id="page1">
-      <div class="page-content w-full flex flex-col align-center items-center">
-        <h2 class="text-3xl font-bold mb-8" style="font-family:'Playfair Display'">Susunan Acara</h2>
-        <div class="space-y-4 text-left w-64">
-            <div class="border-l-4 border-gold pl-4"><p class="text-gold font-bold text-xs">07.30</p><p class="font-bold text-sm">Pembukaan</p></div>
-            <div class="border-l-4 border-gold pl-4"><p class="text-gold font-bold text-xs">09.00</p><p class="font-bold text-sm">Prosesi Wisuda</p></div>
-            <div class="border-l-4 border-gold pl-4"><p class="text-gold font-bold text-xs">11.00</p><p class="font-bold text-sm">Persembahan</p></div>
-            <div class="border-l-4 border-gold pl-4"><p class="text-gold font-bold text-xs">11.50</p><p class="font-bold text-sm">Penutup</p></div>
-        </div>
-        <div class="flex gap-4 mt-12">
-            <button class="btn-gold text-xs" onclick="changePage(0)">Kembali</button>
-            <button class="btn-gold text-xs" onclick="changePage(2)">Lanjut</button>
-        </div>
+      <div style="margin: 20px 0; text-align: center;">
+        <p style="font-style:italic; font-size:14px;">Yth. Bapak/Ibu Orang Tua</p>
+        <p id="elStudentName" style="font-size:22px; font-weight:700; color:#1A365D;">[Nama Siswa]</p>
       </div>
-    </section>
 
-    <!-- HALAMAN 3 -->
-    <section class="page" id="page2">
-      <div class="page-content">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-20 mx-auto mb-6">
-        <p class="italic">Sampai jumpa di</p>
-        <h2 class="text-5xl font-black my-2" style="font-family:'Playfair Display'">Wisuda</h2>
-        <p class="font-bold opacity-60">SMA PLUS PEMBANGUNAN JAYA</p>
-        <button class="btn-gold mt-12" onclick="changePage(0)">Kembali Ke Awal</button>
+      <div style="background:rgba(26,54,93,0.05); border:1px solid #BF9B30; border-radius:8px; padding:15px; width: 100%;">
+        <p style="font-family:'Playfair Display'; font-weight:700;">Sabtu, 23 Mei 2026</p>
+        <p style="color:#BF9B30; font-weight:700;">07.30 – 11.55 WIB</p>
+        <div style="height:1px; background:#BF9B30; opacity:0.3; margin:8px 0;"></div>
+        <p style="font-size:12px; font-weight:bold; color:#1A365D;">LOKASI ACARA:</p>
+        <p style="font-weight:700;">MPH SMA Plus Pembangunan Jaya</p>
       </div>
-    </section>
+
+      <button class="btn-nav" style="margin-top:20px;" onclick="goPage(1)">Susunan Acara</button>
+    </div>
+
+    <!-- HALAMAN 2 (SUSUNAN) -->
+    <div class="page" id="page1">
+      <h2 style="font-family:'Playfair Display'; font-size:32px; color:#1A365D;">Susunan Acara</h2>
+      <div class="gold-divider"></div>
+      <div style="text-align:left; font-size:14px; width:100%;">
+        <p><b>07.30 – 08.00:</b> Pembukaan</p>
+        <p><b>08.10 – 08.30:</b> Sambutan</p>
+        <p><b>09.00 – 11.00:</b> Prosesi Wisuda</p>
+        <p><b>11.00 – 11.55:</b> Persembahan & Penutup</p>
+      </div>
+      <div class="flex gap-2 mt-6">
+        <button class="btn-nav" onclick="goPage(0)">Kembali</button>
+        <button class="btn-nav" onclick="goPage(2)">Penutup</button>
+      </div>
+    </div>
+
+    <!-- HALAMAN 3 (PENUTUP) -->
+    <div class="page" id="page2">
+      <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" style="width:120px; margin-bottom:20px;">
+      <p style="font-style:italic;">Sampai jumpa di acara</p>
+      <h2 style="font-family:'Playfair Display'; font-size:40px; color:#1A365D;">Wisuda XXVII</h2>
+      <button class="btn-nav" style="margin-top:30px;" onclick="goPage(0)">Ke Awal</button>
+    </div>
   </main>
 
   <script>
     const audio = document.getElementById('bgMusic');
-    const trans = document.getElementById('transitionLayer');
 
-    // 1. Fungsi Start (Musik + Animasi Pembuka)
-    function startApp() {
-      // Hilangkan overlay pembuka
-      document.getElementById('welcomeOverlay').style.display = 'none';
-      
-      // Paksa Audio Jalan
+    function startUndangan() {
+      document.getElementById('welcome').style.display = 'none';
       audio.volume = 0.6;
-      audio.play().catch(e => console.log("Audio diblokir browser"));
-      
-      // Refresh ikon
-      lucide.createIcons();
+      audio.play();
     }
 
-    // 2. Navigasi dengan Animasi Transisi
-    function changePage(pageIndex) {
-      // Jalankan Layer Emas (Menutup)
-      trans.classList.add('active');
-      
-      setTimeout(() => {
-        // Ganti Halaman Saat Layar Tertutup
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('page' + pageIndex).classList.add('active');
-        
-        // Buka Layar Emas Kembali
-        trans.classList.remove('active');
-      }, 500);
+    function goPage(n) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + n).classList.add('active');
     }
 
-    // 3. Ambil Nama Siswa
-    const name = new URLSearchParams(window.location.search).get('student');
-    if (name) document.getElementById('studentName').innerText = decodeURIComponent(name);
+    // Ambil nama dari URL
+    const params = new URLSearchParams(window.location.search);
+    const student = params.get('student');
+    if (student) document.getElementById('elStudentName').innerText = decodeURIComponent(student);
 
     lucide.createIcons();
   </script>
