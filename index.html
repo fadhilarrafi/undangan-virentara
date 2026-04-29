@@ -2,178 +2,153 @@
 <html lang="id" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Undangan Wisuda XXVII - SPJ</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Warna Gelap Agar Kontras & Mudah Dibaca */
-    :root { --gold-dark: #A67C00; --navy-dark: #0F2544; --bg: #FAF6ED; }
+    :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     
-    body { background-color: var(--bg); margin: 0; font-family: 'Lora', serif; color: var(--navy-dark); overflow-x: hidden; }
+    body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; }
     
-    /* Batik Hanya di Kiri */
-    .batik-border-left { position: fixed; top: 0; left: 0; width: 65px; height: 100%; z-index: 40; pointer-events: none; }
-    @media (min-width: 768px) { .batik-border-left { width: 100px; } }
+    /* Batik Kiri Saja */
+    .batik-border { position: fixed; top: 0; left: 0; width: 50px; height: 100%; z-index: 40; pointer-events: none; object-fit: cover; }
 
-    /* Overlay Pembuka agar Musik Bisa Auto-play */
-    #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    /* Overlay Full Screen */
+    #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 
-    .page { min-height: 100vh; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px 40px 80px; position: relative; max-width: 600px; margin: 0 auto; text-align: center; }
+    /* Container Utama Compact (Anti-Scroll) */
+    .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px 20px 20px 70px; text-align: center; height: 100%; }
     .page.active { display: flex; }
 
-    .gold-divider { width: 120px; height: 2px; background: var(--gold-dark); margin: 15px auto; opacity: 0.6; }
-    
-    .card-info { background: #F2EBDC; border: 1.5px solid var(--gold-dark); border-radius: 12px; padding: 24px; margin: 20px 0; width: 100%; }
+    .card-compact { background: rgba(242, 235, 220, 0.7); border: 1px solid var(--gold-dark); border-radius: 10px; padding: 12px; width: 100%; max-width: 320px; margin: 8px 0; }
 
-    .timeline-container { text-align: left; width: 100%; margin-top: 20px; font-size: 15px; }
-    .timeline-item { position: relative; padding-left: 30px; padding-bottom: 18px; border-left: 2px solid var(--gold-dark); margin-left: 10px; }
-    .timeline-item::before { content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--navy-dark); }
+    /* Timeline Lebih Padat */
+    .timeline-container { text-align: left; width: 100%; max-width: 300px; font-size: 13px; }
+    .timeline-item { position: relative; padding-left: 20px; padding-bottom: 8px; border-left: 1.5px solid var(--gold-dark); margin-left: 5px; }
+    .timeline-item::before { content: ''; position: absolute; left: -5.5px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--navy-dark); }
 
-    .btn-gold { padding: 12px 30px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 4px; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s; background: white; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-gold:hover { background: var(--gold-dark); color: white; }
+    .btn-gold { padding: 8px 20px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 4px; font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; }
 
-    .anim-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    h1 { font-size: 42px !important; line-height: 1; margin-bottom: 5px !important; }
+    .student-name { font-size: 20px !important; line-height: 1.2; margin: 5px 0; }
   </style>
 </head>
 <body>
 
-  <!-- Welcome Screen (Kunci Auto-Play) -->
+  <!-- Layar Buka Undangan -->
   <div id="welcomeOverlay">
-    <div class="text-center p-6">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-20 mx-auto mb-6">
-        <h2 class="text-2xl font-bold mb-4" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
-        <button onclick="startApp()" class="btn-gold">Buka Undangan</button>
-    </div>
-  </div>
-
-  <!-- Border Batik Kiri Saja -->
-  <div class="batik-border-left">
-    <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="w-full h-full object-cover">
-  </div>
-
-  <!-- Music Control -->
-  <audio id="bgMusic" loop src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3"></audio>
-
-  <main>
-    <!-- HALAMAN 1: UNDANGAN -->
-    <section class="page active" id="page0">
-      <div class="flex justify-center gap-6 mb-4 anim-up" style="animation-delay: 0.1s;">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16 object-contain">
-        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16 object-contain">
-      </div>
-
-      <h1 class="anim-up" style="animation-delay: 0.2s; font-family:'Playfair Display', serif; font-size: 58px; color: var(--gold-dark); font-weight: 900;">Wisuda</h1>
-      
-      <div class="anim-up font-bold" style="animation-delay: 0.3s; font-family:'Cormorant Garamond', serif; font-size: 18px; color: var(--navy-dark);">
-        <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
-      </div>
-
-      <div class="gold-divider anim-up" style="animation-delay: 0.4s;"></div>
-
-      <div class="anim-up" style="animation-delay: 0.5s; margin: 10px 0;">
-        <p class="italic text-lg">Yth. Bapak/Ibu</p>
-        <p class="font-bold text-2xl" style="color: var(--navy-dark);">Orang Tua <span id="studentName" style="color: var(--gold-dark);">[Nama Siswa]</span></p>
-        <p class="mt-4 font-semibold">Dengan ini kami mengundang Bapak/Ibu pada:</p>
-      </div>
-
-      <div class="card-info anim-up" style="animation-delay: 0.6s;">
-        <h3 style="font-family:'Playfair Display', serif; font-size: 24px; font-weight: 900; color: var(--navy-dark);">Sabtu, 23 Mei 2026</h3>
-        <p style="color: var(--gold-dark); font-weight: 700; font-size: 18px; margin: 5px 0;">Pukul 07.30 – 11.55 WIB</p>
-        <p class="font-bold" style="font-size: 14px; margin-bottom: 20px;">Siswa hadir di sekolah pukul 07.00 WIB</p>
-        
-        <p class="text-xs uppercase tracking-widest font-bold opacity-70 mb-1">Lokasi Acara</p>
-        <p class="font-bold text-xl" style="color: var(--navy-dark);">MPH SMA Plus Pembangunan Jaya</p>
-      </div>
-
-      <p class="anim-up font-bold" style="animation-delay: 0.7s; color: var(--gold-dark); font-size: 14px;">✦ Undangan berlaku untuk 2 orang ✦</p>
-
-      <button class="btn-gold mt-8 anim-up" style="animation-delay: 0.8s;" onclick="goToPage(1)">
-        Susunan Acara <i data-lucide="arrow-right" class="w-4 h-4"></i>
-      </button>
-    </section>
-
-    <!-- HALAMAN 2: JADWAL -->
-    <section class="page" id="page1">
-      <h2 style="font-family:'Playfair Display', serif; font-size: 40px; color: var(--navy-dark); font-weight: 900;">Susunan Acara</h2>
-      <div class="gold-divider"></div>
-
-      <div class="timeline-container">
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">07.30 – 08.00</p>
-          <p class="font-bold text-lg">Pembukaan</p>
-        </div>
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">08.00 – 08.10</p>
-          <p class="font-bold text-lg">Pembacaan Doa</p>
-        </div>
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">08.10 – 08.30</p>
-          <p class="font-bold text-lg">Sambutan</p>
-        </div>
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">08.30 – 09.00</p>
-          <p class="font-bold text-lg">Pengumuman Prestasi</p>
-        </div>
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">09.00 – 11.00</p>
-          <p class="font-bold text-lg">Prosesi Wisuda</p>
-        </div>
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">11.00 – 11.50</p>
-          <p class="font-bold text-lg">Pengukuhan & Persembahan</p>
-        </div>
-        <div class="timeline-item">
-          <p class="font-bold" style="color: var(--gold-dark);">11.50 – 11.55</p>
-          <p class="font-bold text-lg">Penutup</p>
-        </div>
-      </div>
-
-      <div class="flex gap-4 mt-10">
-        <button class="btn-gold" onclick="goToPage(0)">Undangan</button>
-        <button class="btn-gold" onclick="goToPage(2)">Penutup</button>
-      </div>
-    </section>
-
-    <!-- HALAMAN 3: PENUTUP -->
-    <section class="page" id="page2">
-      <div class="flex justify-center gap-6 mb-10">
+    <div class="flex gap-4 mb-6">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16">
+    </div>
+    <h2 class="text-xl font-bold mb-2" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
+    <p class="text-sm italic mb-6">SMA Plus Pembangunan Jaya</p>
+    <button onclick="startApp()" class="btn-gold">Buka Undangan</button>
+  </div>
+
+  <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
+
+  <!-- Audio Element -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3" type="audio/mpeg">
+  </audio>
+
+  <main>
+    <!-- PAGE 1: DEPAN -->
+    <section class="page active" id="page0">
+      <div class="flex justify-center gap-4 mb-2">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-12">
+        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-12">
       </div>
-      <p class="italic text-xl mb-2">Sampai jumpa di acara</p>
-      <h2 style="font-family:'Playfair Display', serif; font-size: 60px; color: var(--navy-dark); font-weight: 900;">Wisuda</h2>
-      <div class="gold-divider my-6"></div>
-      <button class="btn-gold" onclick="goToPage(0)">Kembali Ke Awal</button>
+
+      <h1 style="font-family:'Playfair Display', serif; color: var(--gold-dark); font-weight: 900;">Wisuda</h1>
+      
+      <div class="font-bold" style="font-family:'Cormorant Garamond', serif; font-size: 14px;">
+        <p>SMA Plus Pembangunan Jaya</p>
+        <p>Angkatan XXVII (Virentara)</p>
+      </div>
+
+      <div class="my-2 text-sm">
+        <p class="italic">Yth. Bapak/Ibu Orang Tua</p>
+        <p class="student-name font-bold" style="color: var(--gold-dark);" id="studentName">[Nama Siswa]</p>
+      </div>
+
+      <div class="card-compact">
+        <h3 class="font-bold" style="font-size: 16px;">Sabtu, 23 Mei 2026</h3>
+        <p style="color: var(--gold-dark); font-weight: 700; font-size: 14px;">07.30 – 11.55 WIB</p>
+        <div class="h-[1px] bg-gray-300 my-2"></div>
+        <p class="text-[11px] uppercase font-bold opacity-70">Lokasi Acara</p>
+        <p class="font-bold text-sm">MPH SMA Plus Pembangunan Jaya</p>
+      </div>
+
+      <p class="font-bold text-[10px]" style="color: var(--gold-dark);">✦ Undangan berlaku untuk 2 orang ✦</p>
+
+      <button class="btn-gold mt-4" onclick="goToPage(1)">Jadwal <i data-lucide="arrow-right" class="inline w-3 h-3"></i></button>
+    </section>
+
+    <!-- PAGE 2: JADWAL -->
+    <section class="page" id="page1">
+      <h2 class="mb-4" style="font-family:'Playfair Display'; font-size: 28px; font-weight: 900;">Susunan Acara</h2>
+      
+      <div class="timeline-container">
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">07.30</p><p class="font-bold">Pembukaan</p></div>
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">08.00</p><p class="font-bold">Pembacaan Doa</p></div>
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">08.10</p><p class="font-bold">Sambutan-sambutan</p></div>
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">08.30</p><p class="font-bold">Pengumuman Prestasi</p></div>
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">09.00</p><p class="font-bold">Prosesi Wisuda</p></div>
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">11.00</p><p class="font-bold">Janji Alumni & Persembahan</p></div>
+        <div class="timeline-item"><p class="font-bold text-xs" style="color: var(--gold-dark);">11.50</p><p class="font-bold">Penutup</p></div>
+      </div>
+
+      <div class="flex gap-2 mt-6">
+        <button class="btn-gold" onclick="goToPage(0)">Kembali</button>
+        <button class="btn-gold" onclick="goToPage(2)">Selesai</button>
+      </div>
+    </section>
+
+    <!-- PAGE 3: PENUTUP -->
+    <section class="page" id="page2">
+      <div class="flex justify-center gap-4 mb-4">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-14">
+        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-14">
+      </div>
+      <p class="italic text-lg">Sampai jumpa di acara</p>
+      <h2 style="font-family:'Playfair Display'; font-size: 48px; font-weight: 900; color: var(--navy-dark);">Wisuda</h2>
+      <p class="text-sm font-bold mt-4" style="color: var(--gold-dark);">Angkatan XXVII - Virentara</p>
+      <button class="btn-gold mt-10" onclick="goToPage(0)">Ke Awal</button>
     </section>
   </main>
 
   <script>
     const audio = document.getElementById('bgMusic');
 
-    // Fungsi Mulai Aplikasi & Musik (Volume 60%)
     function startApp() {
+        // Sembunyikan overlay
         document.getElementById('welcomeOverlay').style.display = 'none';
-        audio.volume = 0.6; // Set volume 60%
-        audio.play();
+        
+        // Mainkan musik dengan volume 60%
+        audio.volume = 0.6;
+        
+        // Promise untuk memastikan audio jalan
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                console.log("Playback started");
+            }).catch(error => {
+                console.log("Playback failed:", error);
+            });
+        }
     }
 
-    // Ambil Nama dari URL
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('student');
-    if (name) {
-      document.getElementById('studentName').innerText = decodeURIComponent(name);
-    }
+    // Ambil Nama Siswa
+    const name = new URLSearchParams(window.location.search).get('student');
+    if (name) document.getElementById('studentName').innerText = decodeURIComponent(name);
 
-    // Navigasi
     function goToPage(index) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page' + index).classList.add('active');
-      window.scrollTo(0,0);
     }
 
     lucide.createIcons();
