@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Wisuda - SMA Plus Pembangunan Jaya</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&amp;family=Lora:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+  .batik-border-left, .batik-border-right {
+    position: fixed;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    z-index: 40;
+    pointer-events: none;
+    display: block;
+    opacity: 1;
+  }
+  @media (min-width: 768px) {
+    .batik-border-left, .batik-border-right {
+      width: 120px;
+      opacity: 1;
+    }
+  }
+  .batik-border-left { left: 0; }
+  .batik-border-right { right: 0; }
+  .batik-pattern {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(26,54,93,0.9) 0%, rgba(26,54,93,0.7) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .batik-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(191,155,48,0.3) 18px, rgba(191,155,48,0.3) 19px),
+      repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(191,155,48,0.3) 18px, rgba(191,155,48,0.3) 19px);
+  }
+  .batik-pattern::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle 4px at 9px 9px, rgba(191,155,48,0.5) 2px, transparent 3px),
+      radial-gradient(circle 2px at 28px 28px, rgba(191,155,48,0.3) 1.5px, transparent 2px);
+    background-size: 38px 38px;
+  }
+
+  .page { min-height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 24px 32px; position: relative; max-width: 320px; margin: 0 auto; }
+  @media (min-width: 768px) {
+    .page { padding: 40px 70px; max-width: 100%; }
+  }
+  .page.active { display: flex; }
+
+  .gold-divider {
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, transparent, #BF9B30, transparent);
+    margin: 12px auto;
+  }
+  .gold-divider-wide {
+    width: 200px; height: 1px;
+    background: linear-gradient(90deg, transparent, #BF9B30, transparent);
+    margin: 16px auto;
+  }
+
+  .ornament-top, .ornament-bottom {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 20px; opacity: 0.5;
+  }
+  .ornament-top { top: 20px; }
+  .ornament-bottom { bottom: 20px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .anim-fade { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+  .anim-d1 { animation-delay: 0.1s; }
+  .anim-d2 { animation-delay: 0.25s; }
+  .anim-d3 { animation-delay: 0.4s; }
+  .anim-d4 { animation-delay: 0.55s; }
+  .anim-d5 { animation-delay: 0.7s; }
+  .anim-d6 { animation-delay: 0.85s; }
+
+  .nav-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #BF9B30; cursor: pointer; transition: all 0.3s; }
+  .nav-dot.active { background: #BF9B30; transform: scale(1.3); }
+
+  .timeline-item { position: relative; padding-left: 28px; padding-bottom: 14px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: 6px; top: 8px; width: 8px; height: 8px;
+    border-radius: 50%; background: #BF9B30; border: 2px solid #1A365D;
+  }
+  .timeline-item::after {
+    content: ''; position: absolute; left: 9.5px; top: 18px; width: 1px; bottom: 0;
+    background: linear-gradient(180deg, #BF9B30, transparent);
+  }
+  .timeline-item:last-child::after { display: none; }
+
+  .logo-img {
+    width: 140px; height: 140px; object-fit: contain; border-radius: 8px;
+  }
+
+  .btn-nav {
+    padding: 6px 20px; border: 1px solid #BF9B30; color: #BF9B30; border-radius: 4px;
+    font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 1px;
+    cursor: pointer; transition: all 0.3s; background: transparent;
+  }
+  .btn-nav:hover { background: #BF9B30; color: #FAF6ED; }
+</style>
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        cream: '#FAF6ED',
+        navy: '#1A365D',
+        gold: '#BF9B30',
+        'navy-light': '#2B4C7E',
+        'gold-light': '#D4B44A',
+      }
+    }
+  }
+}
+</script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full" style="margin:0; background:#FAF6ED;">
+  <div class="batik-border-left">
+   <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" alt="Border Design" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy" onerror="console.error('Border image failed');this.style.background='linear-gradient(180deg, rgba(26,54,93,0.9) 0%, rgba(26,54,93,0.7) 100%)';">
+  </div><!-- Nav dots -->
+  <div id="navDots" style="position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:50; display:flex; flex-direction:column; gap:10px;">
+   <div class="nav-dot active" onclick="goPage(0)"></div>
+   <div class="nav-dot" onclick="goPage(1)"></div>
+   <div class="nav-dot" onclick="goPage(2)"></div>
+  </div><!-- Audio Player (Hidden) -->
+  <audio id="bgMusic" style="display:none;">
+   <source id="audioSource" type="audio/mpeg">
+  </audio><!-- Music Control Button --> <button id="musicToggle" style="position:fixed; bottom:20px; right:20px; z-index:50; width:50px; height:50px; border-radius:50%; background:#BF9B30; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.3s; padding:0;"> <i data-lucide="music" style="width:24px; height:24px; color:#FAF6ED; stroke-width:2;"></i> </button>
+  <main id="appWrapper" class="h-full w-full" style="overflow-y:auto; overflow-x:hidden;">
+   <!-- PAGE 1 -->
+   <div class="page active" id="page0" style="padding: 12px 16px 12px 32px;">
+    <div class="ornament-top">
+     <svg viewbox="0 0 80 20" fill="none"><path d="M0 10 Q20 0 40 10 Q60 20 80 10" stroke="#BF9B30" stroke-width="1" opacity="0.6" /><path d="M10 10 Q30 2 50 10 Q70 18 80 10" stroke="#BF9B30" stroke-width="0.5" opacity="0.4" />
+     </svg>
+    </div>
+    <div class="flex items-center gap-3 mb-2 anim-fade anim-d1">
+     <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" alt="Logo Sekolah" class="logo-img" loading="lazy" style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1)); width:100px; height:100px;" onerror="console.error('Logo fail:',this.src);this.style.background='linear-gradient(135deg,#1A365D,#2B4C7E)';this.alt='Logo Sekolah';"> <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" alt="Logo Angkatan" class="logo-img" loading="lazy" style="width:100px; height:100px;" onerror="console.error('Logo fail:',this.src);this.style.background='linear-gradient(135deg,#BF9B30,#D4B44A)';this.alt='Logo Angkatan';">
+    </div>
+    <h1 id="elMainTitle" class="anim-fade anim-d2" style="font-family:'Playfair Display',serif; font-size:48px; font-weight:900; color:#BF9B30; letter-spacing:3px; margin:0;">Wisuda</h1>
+    <div class="gold-divider anim-fade anim-d2"></div>
+    <p id="elSchoolName" class="anim-fade anim-d3 text-center" style="font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:700; color:#1A365D; letter-spacing:2px; margin:4px 0 0; line-height:1.6;">SMA Plus Pembangunan Jaya<br>
+      Angkatan XXVII (Virentara)<br>
+      Tahun Ajaran 2025/2026</p>
+    <div class="gold-divider-wide anim-fade anim-d3" style="margin:10px auto;"></div>
+    <div class="anim-fade anim-d4 text-center" style="max-width:480px; margin-top:10px;">
+     <p style="font-family:'Lora',serif; font-size:14px; color:#1A365D; line-height:1.8; font-style:italic; margin:0 0 10px; font-weight:600;">Yth. Bapak/Ibu<br>
+       Orang Tua <span id="elStudentName">[Nama Siswa]</span><br><br>
+       Dengan ini kami mengundang Bapak/Ibu pada:</p>
+    </div>
+    <div class="anim-fade anim-d5" style="background:rgba(26,54,93,0.05); border:1px solid rgba(191,155,48,0.3); border-radius:8px; padding:16px 24px; text-align:center; margin-top:12px;">
+     <p id="elDate" style="font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#1A365D; margin:0;">Sabtu, 23 Mei 2026</p>
+     <p id="elTime" style="font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:700; color:#BF9B30; margin:4px 0; letter-spacing:1px;">Pukul 07.30 – 11.55 WIB</p>
+     <p style="font-family:'Lora',serif; font-size:14px; font-weight:600; color:#1A365D; margin:3px 0 8px;">Siswa hadir di sekolah pukul 07.00 WIB</p>
+     <div class="gold-divider" style="width:60px;margin:8px auto;"></div>
+     <p style="font-family:'Cormorant Garamond',serif; font-size:15px; font-weight:700; color:#1A365D; margin:0; letter-spacing:1px;">Lokasi Acara</p>
+     <p id="elVenue" style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#1A365D; margin:3px 0 0;">MPH SMA Plus Pembangunan Jaya</p>
+    </div>
+    <p class="anim-fade anim-d6" style="font-family:'Lora',serif; font-size:12px; color:#BF9B30; margin-top:10px; letter-spacing:1.5px;">✦ Undangan berlaku untuk 2 orang ✦</p><button class="btn-nav anim-fade anim-d6" style="margin-top:16px;" onclick="playMusicAndGoPage(1)"> SUSUNAN ACARA <i data-lucide="chevron-right" style="width:14px;height:14px;display:inline;vertical-align:middle;"></i> </button>
+    <div class="ornament-bottom">
+     <svg viewbox="0 0 80 20" fill="none"><path d="M0 10 Q20 20 40 10 Q60 0 80 10" stroke="#BF9B30" stroke-width="1" opacity="0.6" />
+     </svg>
+    </div>
+   </div><!-- PAGE 2 -->
+   <div class="page" id="page1">
+    <div class="ornament-top">
+     <svg viewbox="0 0 80 20" fill="none"><path d="M0 10 Q20 0 40 10 Q60 20 80 10" stroke="#BF9B30" stroke-width="1" opacity="0.6" />
+     </svg>
+    </div>
+    <h2 class="anim-fade anim-d1" style="font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:#1A365D; letter-spacing:2px; margin:0;">Susunan Acara</h2>
+    <div class="gold-divider anim-fade anim-d1"></div>
+    <div class="anim-fade anim-d2" style="max-width:440px; width:100%; margin-top:20px;">
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">07.30 – 08.00</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Pembukaan</p>
+     </div>
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">08.00 – 08.10</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Pembacaan Doa</p>
+     </div>
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">08.10 – 08.30</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Sambutan</p>
+     </div>
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">08.30 – 09.00</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Pengumuman Prestasi</p>
+     </div>
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">09.00 – 11.00</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Prosesi Wisuda</p>
+     </div>
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">11.00 – 11.50</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Pengukuhan, Janji Alumni &amp; Persembahan</p>
+     </div>
+     <div class="timeline-item">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:13px; color:#BF9B30; margin:0; font-weight:600;">11.50 – 11.55</p>
+      <p style="font-family:'Lora',serif; font-size:15px; color:#1A365D; margin:3px 0 0;">Penutup</p>
+     </div>
+    </div>
+    <div class="flex gap-4 mt-8 anim-fade anim-d3">
+     <button class="btn-nav" onclick="goPage(0)"><i data-lucide="chevron-left" style="width:14px;height:14px;display:inline;vertical-align:middle;"></i> UNDANGAN</button> <button class="btn-nav" onclick="goPage(2)">PENUTUP <i data-lucide="chevron-right" style="width:14px;height:14px;display:inline;vertical-align:middle;"></i></button>
+    </div>
+    <div class="ornament-bottom">
+     <svg viewbox="0 0 80 20" fill="none"><path d="M0 10 Q20 20 40 10 Q60 0 80 10" stroke="#BF9B30" stroke-width="1" opacity="0.6" />
+     </svg>
+    </div>
+   </div><!-- PAGE 3 -->
+   <div class="page" id="page2">
+    <div class="ornament-top">
+     <svg viewbox="0 0 80 20" fill="none"><path d="M0 10 Q20 0 40 10 Q60 20 80 10" stroke="#BF9B30" stroke-width="1" opacity="0.6" />
+     </svg>
+    </div>
+    <div class="flex items-center gap-8 mb-8 anim-fade anim-d1">
+     <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" alt="Logo Sekolah" class="logo-img" loading="lazy" onerror="console.error('Logo fail:',this.src);this.style.background='linear-gradient(135deg,#1A365D,#2B4C7E)';this.alt='Logo Sekolah';"> <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" alt="Logo Angkatan" class="logo-img" loading="lazy" onerror="console.error('Logo fail:',this.src);this.style.background='linear-gradient(135deg,#BF9B30,#D4B44A)';this.alt='Logo Angkatan';">
+    </div>
+    <p id="elClosingMsg" class="anim-fade anim-d2" style="font-family:'Cormorant Garamond',serif; font-size:17px; color:#1A365D; letter-spacing:2px; margin:0;">Sampai jumpa di acara</p>
+    <h2 class="anim-fade anim-d3" style="font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:#1A365D; letter-spacing:3px; margin:12px 0 0;"><span id="elClosingTitle">Wisuda</span></h2>
+    <div class="gold-divider anim-fade anim-d3"></div>
+    <p class="anim-fade anim-d4 text-center" style="font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:600; color:#1A365D; letter-spacing:2px; line-height:1.7; margin:12px 0 0;">SMA Plus Pembangunan Jaya<br>
+      Angkatan XXVII (Virentara)<br>
+      Tahun Ajaran 2025/2026</p>
+    <div class="gold-divider-wide anim-fade anim-d4"></div>
+    <p class="anim-fade anim-d5" style="font-family:'Lora',serif; font-size:24px; color:#BF9B30; margin-top:20px;">✦</p><button class="btn-nav anim-fade anim-d5" style="margin-top:16px;" onclick="goPage(0)"> <i data-lucide="chevron-left" style="width:14px;height:14px;display:inline;vertical-align:middle;"></i> KEMBALI KE AWAL </button>
+    <div class="ornament-bottom">
+     <svg viewbox="0 0 80 20" fill="none"><path d="M0 10 Q20 20 40 10 Q60 0 80 10" stroke="#BF9B30" stroke-width="1" opacity="0.6" />
+     </svg>
+    </div>
+   </div>
+  </main>
+  <script>
+// Get student name from URL parameter (works in both preview and published)
+function getStudentNameFromURL() {
+  // Try query parameter first (?student=Nama)
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = params.get('student');
+  if (fromQuery) return decodeURIComponent(fromQuery);
+  
+  // Try hash parameter (#student=Nama) for published links
+  const hash = window.location.hash;
+  const match = hash.match(/student=([^&]*)/);
+  if (match) return decodeURIComponent(match[1]);
+  
+  return '';
+}
+
+// Audio control
+let isPlaying = false;
+const audio = document.getElementById('bgMusic');
+const audioSource = document.getElementById('audioSource');
+const musicToggle = document.getElementById('musicToggle');
+
+// Set default music URL
+const defaultMusicUrl = 'https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3';
+audioSource.src = defaultMusicUrl;
+audio.loop = true;
+audio.volume = 0.5; // Set volume to 50%
+
+// Music starts only on user interaction (SUSUNAN ACARA button)
+
+musicToggle.addEventListener('click', () => {
+  if (isPlaying) {
+    audio.pause();
+    isPlaying = false;
+    musicToggle.style.background = '#BF9B30';
+  } else {
+    audio.play().catch(err => console.error('Playback error:', err));
+    isPlaying = true;
+    musicToggle.style.background = '#D4B44A';
+  }
+  lucide.createIcons();
+});
+
+let currentPage = 0;
+const pages = document.querySelectorAll('.page');
+const dots = document.querySelectorAll('.nav-dot');
+
+function playMusicAndGoPage(n) {
+  // Ensure music is playing
+  if (!isPlaying) {
+    audio.play().catch(err => console.error('Playback error:', err));
+    isPlaying = true;
+    musicToggle.style.background = '#D4B44A';
+  }
+  // Go to the page
+  goPage(n);
+}
+
+function goPage(n) {
+  pages[currentPage].classList.remove('active');
+  dots[currentPage].classList.remove('active');
+  currentPage = n;
+  pages[currentPage].classList.add('active');
+  dots[currentPage].classList.add('active');
+  // Re-trigger animations
+  pages[currentPage].querySelectorAll('.anim-fade').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+  document.getElementById('appWrapper').scrollTop = 0;
+}
+
+// Element SDK
+let studentNameFromURL = getStudentNameFromURL();
+const defaultConfig = {
+  background_color: '#FAF6ED',
+  surface_color: '#1A365D',
+  text_color: '#1A365D',
+  primary_action_color: '#BF9B30',
+  secondary_action_color: '#2B4C7E',
+  font_family: 'Playfair Display',
+  font_size: 16,
+  student_name: studentNameFromURL || '[Nama Siswa]',
+  main_title: 'Wisuda',
+  event_date: 'Sabtu, 23 Mei 2026',
+  event_time: 'Pukul 07.30 – 11.55 WIB',
+  venue: 'MPH SMA Plus Pembangunan Jaya',
+  closing_message: 'Sampai jumpa di acara'
+};
+
+async function onConfigChange(config) {
+  const bg = config.background_color || defaultConfig.background_color;
+  const navy = config.surface_color || defaultConfig.surface_color;
+  const text = config.text_color || defaultConfig.text_color;
+  const gold = config.primary_action_color || defaultConfig.primary_action_color;
+  const font = config.font_family || defaultConfig.font_family;
+  const size = config.font_size || defaultConfig.font_size;
+
+  document.body.style.background = bg;
+
+  document.getElementById('elMainTitle').textContent = config.main_title || defaultConfig.main_title;
+  document.getElementById('elMainTitle').style.fontFamily = `${font}, Playfair Display, serif`;
+  document.getElementById('elMainTitle').style.color = gold;
+  document.getElementById('elMainTitle').style.fontSize = `${size * 3.25}px`;
+
+  // Display student name from config (which now includes URL parameter)
+  const studentName = config.student_name || defaultConfig.student_name || '[Nama Siswa]';
+  document.getElementById('elStudentName').textContent = studentName;
+
+  document.getElementById('elDate').textContent = config.event_date || defaultConfig.event_date;
+  document.getElementById('elDate').style.color = navy;
+  document.getElementById('elTime').textContent = config.event_time || defaultConfig.event_time;
+  document.getElementById('elTime').style.color = gold;
+  document.getElementById('elVenue').textContent = config.venue || defaultConfig.venue;
+  document.getElementById('elVenue').style.color = navy;
+  document.getElementById('elClosingMsg').textContent = config.closing_message || defaultConfig.closing_message;
+  document.getElementById('elClosingMsg').style.color = text;
+  document.getElementById('elClosingTitle').textContent = config.main_title || defaultConfig.main_title;
+
+  // Update all navy-colored text
+  document.querySelectorAll('[style*="color:#1A365D"], [style*="color: #1A365D"]').forEach(el => {
+    if (!el.id || !['elMainTitle','elDate','elVenue','elTime','elClosingMsg'].includes(el.id)) {
+      el.style.color = text;
+    }
+  });
+
+  // Update gold elements
+  document.querySelectorAll('.gold-divider, .gold-divider-wide').forEach(el => {
+    el.style.background = `linear-gradient(90deg, transparent, ${gold}, transparent)`;
+  });
+
+  document.querySelectorAll('.btn-nav').forEach(el => {
+    el.style.borderColor = gold;
+    el.style.color = gold;
+  });
+
+  document.querySelectorAll('.nav-dot').forEach(el => {
+    el.style.borderColor = gold;
+    if (el.classList.contains('active')) el.style.background = gold;
+    else el.style.background = 'transparent';
+  });
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange,
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+      { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+      { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+      { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+      { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+    ],
+    borderables: [],
+    fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+    fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['student_name', config.student_name || '[Nama Siswa]'],
+    ['main_title', config.main_title || defaultConfig.main_title],
+    ['event_date', config.event_date || defaultConfig.event_date],
+    ['event_time', config.event_time || defaultConfig.event_time],
+    ['venue', config.venue || defaultConfig.venue],
+    ['closing_message', config.closing_message || defaultConfig.closing_message],
+  ])
+});
+
+// Listen for URL parameter changes from parent window
+window.addEventListener('message', (event) => {
+  if (event.data && event.data.student) {
+    const newStudentName = event.data.student;
+    window.elementSdk.setConfig({ student_name: newStudentName });
+    document.getElementById('elStudentName').textContent = newStudentName;
+  }
+});
+
+lucide.createIcons();
+
+// Wait a moment for SDK to fully initialize, then update with URL parameter
+setTimeout(() => {
+  const studentName = getStudentNameFromURL();
+  
+  if (studentName) {
+    // Update config with student name from URL
+    window.elementSdk.setConfig({ student_name: studentName });
+    // Also update the DOM directly for immediate display
+    document.getElementById('elStudentName').textContent = studentName;
+  }
+  
+  // Trigger initial render
+  onConfigChange(window.elementSdk.config || defaultConfig);
+}, 50);
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f3dca50c3f2b907',t:'MTc3NzQ2MDI5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
