@@ -2,126 +2,202 @@
 <html lang="id" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Undangan Wisuda - SMA Plus Pembangunan Jaya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Undangan Wisuda XXVII - SMA Plus Pembangunan Jaya</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Pakai Style Asli Kamu */
-    .batik-border-left { position: fixed; top: 0; left: 0; width: 80px; height: 100%; z-index: 40; pointer-events: none; }
-    .page { min-height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 24px 32px; position: relative; max-width: 320px; margin: 0 auto; }
-    .page.active { display: flex; animation: fadeInUp 0.8s ease forwards; }
+    :root { --gold: #BF9B30; --navy: #1A365D; --cream: #FAF6ED; }
     
-    /* Animasi Masuk */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    body, html { height: 100%; margin: 0; background: var(--cream); color: var(--navy); overflow: hidden; font-family: 'Lora', serif; }
+
+    /* Animasi Dasar */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+    .anim-fade { opacity: 0; animation: fadeInUp 1s ease forwards; }
+    .anim-zoom { opacity: 0; animation: zoomIn 1.2s ease forwards; }
+    .anim-float { animation: float 3s ease-in-out infinite; }
+    .delay-1 { animation-delay: 0.3s; }
+    .delay-2 { animation-delay: 0.6s; }
+    .delay-3 { animation-delay: 0.9s; }
+
+    /* Overlay Pembuka (Pemicu Audio) */
+    #welcomeOverlay { 
+      position: fixed; inset: 0; background: var(--cream); z-index: 100; 
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 1s ease, visibility 1s;
     }
 
-    .gold-divider { width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #BF9B30, transparent); margin: 12px auto; }
-    .btn-nav { padding: 8px 20px; border: 1px solid #BF9B30; color: #BF9B30; border-radius: 4px; font-family: 'Cormorant Garamond', serif; cursor: pointer; background: transparent; text-transform: uppercase; font-weight: bold; }
-    
-    /* Overlay Pembuka agar Lagu Jalan */
-    #welcome { position: fixed; inset: 0; background: #FAF6ED; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    /* Batik Kiri */
+    .batik-sidebar { 
+      position: fixed; top: 0; left: 0; width: 40px; height: 100%; 
+      z-index: 40; pointer-events: none; opacity: 0.8; 
+    }
+
+    .page { 
+      position: absolute; inset: 0; display: none; flex-direction: column; 
+      align-items: center; justify-content: center; padding: 20px 20px 20px 60px; text-align: center; 
+    }
+    .page.active { display: flex; }
+
+    .btn-main { 
+      padding: 12px 30px; border: 2px solid var(--gold); color: var(--gold); 
+      font-weight: 700; border-radius: 50px; background: white; 
+      transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .btn-main:active { background: var(--gold); color: white; transform: scale(0.95); }
+
+    .card-info { 
+      background: white; border: 1px solid var(--gold); border-radius: 15px; 
+      padding: 15px; margin: 15px 0; width: 100%; max-width: 280px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
   </style>
 </head>
-<body class="h-full" style="background:#FAF6ED; margin:0;">
+<body>
 
-  <!-- OVERLAY PEMBUKA (Pemicu Lagu) -->
-  <div id="welcome">
-    <div class="flex gap-4 mb-6">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" style="width: 100px;">
-        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" style="width: 100px;">
-    </div>
-    <h1 style="font-family:'Playfair Display'; color:#BF9B30; font-size: 24px; margin-bottom: 20px;">Undangan Wisuda XXVII</h1>
-    <button onclick="startUndangan()" class="btn-nav">Buka Undangan</button>
-  </div>
-
-  <div class="batik-border-left">
-    <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" style="width:100%; height:100%; object-fit:cover;">
-  </div>
-
-  <audio id="bgMusic" loop>
+  <!-- AUDIO PLAYER -->
+  <audio id="myAudio" loop pre-load="auto">
     <source src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3" type="audio/mpeg">
   </audio>
 
-  <main id="appWrapper">
+  <!-- OVERLAY PEMBUKA -->
+  <div id="welcomeOverlay">
+    <div class="anim-zoom mb-6">
+       <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-32 mx-auto anim-float">
+    </div>
+    <h2 class="anim-fade delay-1 text-2xl font-bold" style="font-family:'Playfair Display'">Undangan Wisuda</h2>
+    <p class="anim-fade delay-2 italic mb-8">SMA Plus Pembangunan Jaya</p>
+    <button onclick="unlockAudio()" class="btn-main anim-fade delay-3 shadow-lg">Buka Undangan</button>
+  </div>
+
+  <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-sidebar">
+
+  <main>
     <!-- HALAMAN 1 -->
-    <div class="page active" id="page0">
-      <div class="flex items-center gap-3 mb-4">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" style="width:160px;"> <!-- LOGO BESAR -->
-        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" style="width:160px;">
+    <section class="page active" id="page0">
+      <div class="anim-zoom flex gap-4 mb-4">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
+        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16">
       </div>
+
+      <h1 class="anim-fade delay-1 text-5xl font-black mb-2" style="font-family:'Playfair Display', serif; color: var(--gold);">Wisuda</h1>
       
-      <h1 style="font-family:'Playfair Display'; font-size:48px; font-weight:900; color:#BF9B30; margin:0;">Wisuda</h1>
-      <div class="gold-divider"></div>
-      
-      <p style="font-family:'Cormorant Garamond'; font-size:16px; color:#1A365D; text-align:center;">
-        SMA Plus Pembangunan Jaya<br>
-        Angkatan XXVII (Virentara)<br>
-        Tahun Ajaran 2025/2026
-      </p>
-
-      <div style="margin: 20px 0; text-align: center;">
-        <p style="font-style:italic; font-size:14px;">Yth. Bapak/Ibu Orang Tua</p>
-        <p id="elStudentName" style="font-size:22px; font-weight:700; color:#1A365D;">[Nama Siswa]</p>
+      <div class="anim-fade delay-2 font-bold leading-tight text-sm mb-4">
+        <p>SMA PLUS PEMBANGUNAN JAYA</p>
+        <p class="text-xs opacity-70">Angkatan XXVII (Virentara)</p>
       </div>
 
-      <div style="background:rgba(26,54,93,0.05); border:1px solid #BF9B30; border-radius:8px; padding:15px; width: 100%;">
-        <p style="font-family:'Playfair Display'; font-weight:700;">Sabtu, 23 Mei 2026</p>
-        <p style="color:#BF9B30; font-weight:700;">07.30 – 11.55 WIB</p>
-        <div style="height:1px; background:#BF9B30; opacity:0.3; margin:8px 0;"></div>
-        <p style="font-size:12px; font-weight:bold; color:#1A365D;">LOKASI ACARA:</p>
-        <p style="font-weight:700;">MPH SMA Plus Pembangunan Jaya</p>
+      <div class="anim-fade delay-2 mb-4">
+        <p class="italic text-xs">Yth. Bapak/Ibu Orang Tua</p>
+        <p id="studentName" class="text-2xl font-bold border-b-2 border-gold inline-block px-4">[Nama Siswa]</p>
       </div>
 
-      <button class="btn-nav" style="margin-top:20px;" onclick="goPage(1)">Susunan Acara</button>
-    </div>
-
-    <!-- HALAMAN 2 (SUSUNAN) -->
-    <div class="page" id="page1">
-      <h2 style="font-family:'Playfair Display'; font-size:32px; color:#1A365D;">Susunan Acara</h2>
-      <div class="gold-divider"></div>
-      <div style="text-align:left; font-size:14px; width:100%;">
-        <p><b>07.30 – 08.00:</b> Pembukaan</p>
-        <p><b>08.10 – 08.30:</b> Sambutan</p>
-        <p><b>09.00 – 11.00:</b> Prosesi Wisuda</p>
-        <p><b>11.00 – 11.55:</b> Persembahan & Penutup</p>
+      <div class="card-info anim-fade delay-3">
+        <p class="font-bold text-lg">Sabtu, 23 Mei 2026</p>
+        <p class="text-gold font-bold mb-2">07.30 – 11.55 WIB</p>
+        <hr class="mb-2">
+        <p class="text-[10px] uppercase tracking-widest opacity-60">Lokasi Acara:</p>
+        <p class="font-bold text-sm">MPH SMA Plus Pembangunan Jaya</p>
       </div>
-      <div class="flex gap-2 mt-6">
-        <button class="btn-nav" onclick="goPage(0)">Kembali</button>
-        <button class="btn-nav" onclick="goPage(2)">Penutup</button>
-      </div>
-    </div>
 
-    <!-- HALAMAN 3 (PENUTUP) -->
-    <div class="page" id="page2">
-      <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" style="width:120px; margin-bottom:20px;">
-      <p style="font-style:italic;">Sampai jumpa di acara</p>
-      <h2 style="font-family:'Playfair Display'; font-size:40px; color:#1A365D;">Wisuda XXVII</h2>
-      <button class="btn-nav" style="margin-top:30px;" onclick="goPage(0)">Ke Awal</button>
-    </div>
+      <button class="btn-main anim-fade delay-3 mt-4" onclick="nav(1)">Lihat Acara <i data-lucide="arrow-right" class="inline w-4 h-4 ml-2"></i></button>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page" id="page1">
+      <h2 class="anim-fade font-bold text-2xl mb-6" style="font-family:'Playfair Display'">Susunan Acara</h2>
+      <div class="text-left w-full max-w-[280px] space-y-4 anim-fade delay-1">
+        <div class="flex gap-4 border-l-2 border-gold pl-4">
+          <span class="text-gold font-bold text-xs">07.30</span>
+          <span class="font-bold text-sm text-navy">Pembukaan & Doa</span>
+        </div>
+        <div class="flex gap-4 border-l-2 border-gold pl-4">
+          <span class="text-gold font-bold text-xs">08.10</span>
+          <span class="font-bold text-sm text-navy">Sambutan</span>
+        </div>
+        <div class="flex gap-4 border-l-2 border-gold pl-4">
+          <span class="text-gold font-bold text-xs">09.00</span>
+          <span class="font-bold text-sm text-navy">Prosesi Wisuda</span>
+        </div>
+        <div class="flex gap-4 border-l-2 border-gold pl-4">
+          <span class="text-gold font-bold text-xs">11.00</span>
+          <span class="font-bold text-sm text-navy">Janji Alumni & Persembahan</span>
+        </div>
+      </div>
+      <div class="flex gap-2 mt-12">
+        <button class="btn-main text-xs px-6" onclick="nav(0)">Kembali</button>
+        <button class="btn-main text-xs px-6" onclick="nav(2)">Selesai</button>
+      </div>
+    </section>
+
+    <!-- HALAMAN 3 -->
+    <section class="page" id="page2">
+      <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-24 mb-6 anim-float">
+      <p class="anim-fade italic">Sampai jumpa di acara</p>
+      <h2 class="anim-fade delay-1 text-5xl font-black mb-4" style="font-family:'Playfair Display'; color: var(--navy);">Wisuda</h2>
+      <div class="anim-fade delay-2 text-sm font-bold opacity-70">
+        <p>SMA PLUS PEMBANGUNAN JAYA</p>
+        <p>Tahun Ajaran 2025/2026</p>
+      </div>
+      <button class="btn-main anim-fade delay-3 mt-12" onclick="nav(0)">Ke Awal</button>
+    </section>
   </main>
 
   <script>
-    const audio = document.getElementById('bgMusic');
+    // 1. Logika Audio Paksa
+    const audio = document.getElementById('myAudio');
+    
+    function unlockAudio() {
+      // Sembunyikan Overlay
+      document.getElementById('welcomeOverlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('welcomeOverlay').style.visibility = 'hidden';
+      }, 1000);
 
-    function startUndangan() {
-      document.getElementById('welcome').style.display = 'none';
-      audio.volume = 0.6;
-      audio.play();
+      // Mainkan Audio dengan Volume Bertahap (Fade In Volume)
+      audio.volume = 0;
+      audio.play().then(() => {
+        let vol = 0;
+        const fadeIn = setInterval(() => {
+          if (vol < 0.6) {
+            vol += 0.05;
+            audio.volume = vol;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+      }).catch(err => {
+        console.log("Browser block auto-play. Trying secondary method...");
+        // Jika gagal, coba play di interaksi pertama manapun
+        document.body.addEventListener('touchstart', () => audio.play(), {once: true});
+      });
     }
 
-    function goPage(n) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + n).classList.add('active');
-    }
+    // 2. Ambil Nama Siswa
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('student');
+    if (name) document.getElementById('studentName').innerText = decodeURIComponent(name);
 
-    // Ambil nama dari URL
-    const params = new URLSearchParams(window.location.search);
-    const student = params.get('student');
-    if (student) document.getElementById('elStudentName').innerText = decodeURIComponent(student);
+    // 3. Navigasi Halaman
+    function nav(idx) {
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+      });
+      const target = document.getElementById('page' + idx);
+      target.classList.add('active');
+      
+      // Reset animasi halaman agar muncul lagi tiap pindah
+      const anims = target.querySelectorAll('.anim-fade, .anim-zoom');
+      anims.forEach(a => {
+        a.style.animation = 'none';
+        a.offsetHeight; // trigger reflow
+        a.style.animation = null;
+      });
+    }
 
     lucide.createIcons();
   </script>
