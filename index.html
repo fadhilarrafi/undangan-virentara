@@ -11,26 +11,48 @@
     :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
     
-    .batik-border { position: fixed; top: 0; left: 0; width: 42px; height: 100%; z-index: 40; pointer-events: none; object-fit: cover; opacity: 0.9; }
+    .batik-border { position: fixed; top: 0; left: 0; width: 60px; height: 100%; z-index: 40; pointer-events: none; object-fit: cover; opacity: 0.95; }
 
     #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
 
-    .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 5px 15px 5px 55px; text-align: center; height: 100%; }
+    /* Container utama dengan padding kiri setebal batik */
+    main { 
+        display: flex; 
+        flex-direction: column; 
+        height: 100%; 
+        width: 100%; 
+        padding-left: 60px; /* Kompensasi lebar batik */
+        position: relative; 
+    }
+
+    .page { 
+        display: none; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100%; 
+        width: 100%; 
+        max-width: 450px; /* Membatasi lebar agar tetap cantik di tablet */
+        margin: 0 auto;  /* Ini yang bikin konten benar-benar center di sisa ruang */
+        text-align: center;
+        padding: 10px;
+    }
+    
     .page.active { display: flex; animation: simpleFade 0.6s ease-out forwards; }
 
     @keyframes simpleFade {
-        from { opacity: 0; transform: translateY(5px); }
+        from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .card-info { background: rgba(234, 230, 218, 0.5); border: 1px solid #D1C7B1; border-radius: 12px; padding: 10px 8px; width: 100%; max-width: 310px; margin: 8px 0; }
+    .card-info { background: rgba(234, 230, 218, 0.5); border: 1px solid #D1C7B1; border-radius: 12px; padding: 10px 8px; width: 100%; margin: 8px 0; }
     
     .btn-gold { padding: 8px 24px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 6px; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
     .btn-gold:active { transform: scale(0.95); }
 
     #musicToggle { position: fixed; top: 15px; right: 15px; z-index: 50; background: rgba(255,255,255,0.8); border: 1px solid var(--gold-dark); border-radius: 50%; width: 32px; height: 32px; display: none; align-items: center; justify-content: center; color: var(--gold-dark); }
 
-    h1 { font-family: 'Playfair Display', serif; font-size: 44px !important; color: #C5A347; font-weight: 900; margin: 2px 0 !important; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 42px !important; color: #C5A347; font-weight: 900; margin: 2px 0 !important; }
     .text-serif { font-family: 'Cormorant Garamond', serif; }
     
     .timeline-container { text-align: left; width: 100%; max-width: 290px; font-size: 11px; margin-top: 2px; }
@@ -79,7 +101,7 @@
 
       <div class="mb-1">
         <p class="font-bold text-[#1A365D] text-base leading-tight">Yth. Bapak/Ibu</p>
-        <p class="font-bold text-[#1A365D] text-base leading-tight">Orang Tua <span id="studentName" class="block mt-0.5">[Nama Siswa]</span></p>
+        <p class="font-bold text-[#1A365D] text-base leading-tight">Orang Tua <span id="studentName" class="block mt-0.5 text-lg">[Nama Siswa]</span></p>
       </div>
 
       <p class="italic text-[11px] text-[#1A365D] mb-1">Dengan ini kami mengundang Bapak/Ibu pada:</p>
