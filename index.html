@@ -6,31 +6,33 @@
   <title>Undangan Wisuda XXVII - SPJ</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root { --gold: #BF9B30; --navy: #1A365D; --bg: #FAF6ED; }
+    /* Warna Gelap Agar Kontras & Mudah Dibaca */
+    :root { --gold-dark: #A67C00; --navy-dark: #0F2544; --bg: #FAF6ED; }
     
-    body { background-color: var(--bg); margin: 0; font-family: 'Lora', serif; color: var(--navy); }
+    body { background-color: var(--bg); margin: 0; font-family: 'Lora', serif; color: var(--navy-dark); overflow-x: hidden; }
     
-    .batik-border { position: fixed; top: 0; width: 60px; height: 100%; z-index: 40; pointer-events: none; }
-    @media (min-width: 768px) { .batik-border { width: 100px; } }
-    .border-left { left: 0; }
-    .border-right { right: 0; }
+    /* Batik Hanya di Kiri */
+    .batik-border-left { position: fixed; top: 0; left: 0; width: 65px; height: 100%; z-index: 40; pointer-events: none; }
+    @media (min-width: 768px) { .batik-border-left { width: 100px; } }
 
-    .page { min-height: 100vh; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; position: relative; max-width: 500px; margin: 0 auto; text-align: center; }
+    /* Overlay Pembuka agar Musik Bisa Auto-play */
+    #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+    .page { min-height: 100vh; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px 40px 80px; position: relative; max-width: 600px; margin: 0 auto; text-align: center; }
     .page.active { display: flex; }
 
-    .gold-divider { width: 100px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 15px auto; }
+    .gold-divider { width: 120px; height: 2px; background: var(--gold-dark); margin: 15px auto; opacity: 0.6; }
     
-    .card-info { background: rgba(26, 54, 93, 0.03); border: 1px solid rgba(191, 155, 48, 0.2); border-radius: 12px; padding: 20px; margin: 20px 0; width: 100%; }
+    .card-info { background: #F2EBDC; border: 1.5px solid var(--gold-dark); border-radius: 12px; padding: 24px; margin: 20px 0; width: 100%; }
 
-    .timeline-container { text-align: left; width: 100%; margin-top: 20px; }
-    .timeline-item { position: relative; padding-left: 30px; padding-bottom: 20px; border-left: 1px solid var(--gold); margin-left: 10px; }
-    .timeline-item::before { content: ''; position: absolute; left: -5px; top: 5px; width: 9px; height: 9px; border-radius: 50%; background: var(--navy); border: 1px solid var(--gold); }
-    .timeline-item:last-child { border-left: none; }
+    .timeline-container { text-align: left; width: 100%; margin-top: 20px; font-size: 15px; }
+    .timeline-item { position: relative; padding-left: 30px; padding-bottom: 18px; border-left: 2px solid var(--gold-dark); margin-left: 10px; }
+    .timeline-item::before { content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--navy-dark); }
 
-    .btn-outline { padding: 10px 25px; border: 1px solid var(--gold); color: var(--gold); border-radius: 4px; font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s; background: transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-outline:hover { background: var(--gold); color: white; }
+    .btn-gold { padding: 12px 30px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 4px; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s; background: white; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-gold:hover { background: var(--gold-dark); color: white; }
 
     .anim-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -38,31 +40,34 @@
 </head>
 <body>
 
-  <!-- Background Borders -->
-  <div class="batik-border border-left">
-    <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="w-full h-full object-cover opacity-80">
-  </div>
-  <div class="batik-border border-right">
-    <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="w-full h-full object-cover opacity-80">
+  <!-- Welcome Screen (Kunci Auto-Play) -->
+  <div id="welcomeOverlay">
+    <div class="text-center p-6">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-20 mx-auto mb-6">
+        <h2 class="text-2xl font-bold mb-4" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
+        <button onclick="startApp()" class="btn-gold">Buka Undangan</button>
+    </div>
   </div>
 
-  <!-- Music Toggle -->
-  <button id="musicToggle" style="position:fixed; bottom:20px; right:20px; z-index:100; width:45px; height:45px; border-radius:50%; background:var(--gold); border:none; color:white; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-    <i data-lucide="music-2"></i>
-  </button>
+  <!-- Border Batik Kiri Saja -->
+  <div class="batik-border-left">
+    <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="w-full h-full object-cover">
+  </div>
+
+  <!-- Music Control -->
   <audio id="bgMusic" loop src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3"></audio>
 
   <main>
-    <!-- PAGE 1: UNDANGAN -->
+    <!-- HALAMAN 1: UNDANGAN -->
     <section class="page active" id="page0">
-      <div class="flex justify-center gap-6 mb-6 anim-up" style="animation-delay: 0.1s;">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-14 object-contain">
-        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-14 object-contain">
+      <div class="flex justify-center gap-6 mb-4 anim-up" style="animation-delay: 0.1s;">
+        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16 object-contain">
+        <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16 object-contain">
       </div>
 
-      <h1 class="anim-up" style="animation-delay: 0.2s; font-family:'Playfair Display', serif; font-size: 52px; color: var(--gold); font-weight: 700;">Wisuda</h1>
+      <h1 class="anim-up" style="animation-delay: 0.2s; font-family:'Playfair Display', serif; font-size: 58px; color: var(--gold-dark); font-weight: 900;">Wisuda</h1>
       
-      <div class="anim-up" style="animation-delay: 0.3s; font-family:'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; letter-spacing: 1px;">
+      <div class="anim-up font-bold" style="animation-delay: 0.3s; font-family:'Cormorant Garamond', serif; font-size: 18px; color: var(--navy-dark);">
         <p>SMA Plus Pembangunan Jaya</p>
         <p>Angkatan XXVII (Virentara)</p>
         <p>Tahun Ajaran 2025/2026</p>
@@ -70,136 +75,107 @@
 
       <div class="gold-divider anim-up" style="animation-delay: 0.4s;"></div>
 
-      <div class="anim-up" style="animation-delay: 0.5s; font-size: 15px; margin: 15px 0;">
-        <p class="italic">Yth. Bapak/Ibu</p>
-        <p class="font-bold text-lg" style="color: var(--navy);">Orang Tua <span id="studentName" style="color: var(--gold);">[Nama Siswa]</span></p>
-        <p class="mt-4">Dengan ini kami mengundang Bapak/Ibu pada:</p>
+      <div class="anim-up" style="animation-delay: 0.5s; margin: 10px 0;">
+        <p class="italic text-lg">Yth. Bapak/Ibu</p>
+        <p class="font-bold text-2xl" style="color: var(--navy-dark);">Orang Tua <span id="studentName" style="color: var(--gold-dark);">[Nama Siswa]</span></p>
+        <p class="mt-4 font-semibold">Dengan ini kami mengundang Bapak/Ibu pada:</p>
       </div>
 
       <div class="card-info anim-up" style="animation-delay: 0.6s;">
-        <h3 style="font-family:'Playfair Display', serif; font-size: 22px; font-weight: 700;">Sabtu, 23 Mei 2026</h3>
-        <p style="color: var(--gold); font-weight: 600; margin: 5px 0;">Pukul 07.30 – 11.55 WIB</p>
-        <p style="font-size: 13px; margin-bottom: 15px;">Siswa hadir di sekolah pukul 07.00 WIB</p>
+        <h3 style="font-family:'Playfair Display', serif; font-size: 24px; font-weight: 900; color: var(--navy-dark);">Sabtu, 23 Mei 2026</h3>
+        <p style="color: var(--gold-dark); font-weight: 700; font-size: 18px; margin: 5px 0;">Pukul 07.30 – 11.55 WIB</p>
+        <p class="font-bold" style="font-size: 14px; margin-bottom: 20px;">Siswa hadir di sekolah pukul 07.00 WIB</p>
         
-        <p class="text-xs uppercase tracking-widest opacity-60">Lokasi Acara</p>
-        <p class="font-bold text-lg">MPH SMA Plus Pembangunan Jaya</p>
+        <p class="text-xs uppercase tracking-widest font-bold opacity-70 mb-1">Lokasi Acara</p>
+        <p class="font-bold text-xl" style="color: var(--navy-dark);">MPH SMA Plus Pembangunan Jaya</p>
       </div>
 
-      <p class="anim-up text-xs italic" style="animation-delay: 0.7s; color: var(--gold);">✦ Undangan berlaku untuk 2 orang ✦</p>
+      <p class="anim-up font-bold" style="animation-delay: 0.7s; color: var(--gold-dark); font-size: 14px;">✦ Undangan berlaku untuk 2 orang ✦</p>
 
-      <button class="btn-outline mt-8 anim-up" style="animation-delay: 0.8s;" onclick="goToPage(1)">
-        Susunan Acara <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      <button class="btn-gold mt-8 anim-up" style="animation-delay: 0.8s;" onclick="goToPage(1)">
+        Susunan Acara <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </button>
     </section>
 
-    <!-- PAGE 2: SUSUNAN ACARA -->
+    <!-- HALAMAN 2: JADWAL -->
     <section class="page" id="page1">
-      <h2 style="font-family:'Playfair Display', serif; font-size: 38px; color: var(--navy); font-weight: 700;">Susunan Acara</h2>
+      <h2 style="font-family:'Playfair Display', serif; font-size: 40px; color: var(--navy-dark); font-weight: 900;">Susunan Acara</h2>
       <div class="gold-divider"></div>
 
       <div class="timeline-container">
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">07.30 – 08.00</p>
-          <p class="font-semibold">Pembukaan</p>
+          <p class="font-bold" style="color: var(--gold-dark);">07.30 – 08.00</p>
+          <p class="font-bold text-lg">Pembukaan</p>
         </div>
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">08.00 – 08.10</p>
-          <p class="font-semibold">Pembacaan Doa</p>
+          <p class="font-bold" style="color: var(--gold-dark);">08.00 – 08.10</p>
+          <p class="font-bold text-lg">Pembacaan Doa</p>
         </div>
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">08.10 – 08.30</p>
-          <p class="font-semibold">Sambutan</p>
+          <p class="font-bold" style="color: var(--gold-dark);">08.10 – 08.30</p>
+          <p class="font-bold text-lg">Sambutan</p>
         </div>
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">08.30 – 09.00</p>
-          <p class="font-semibold">Pengumuman Prestasi</p>
+          <p class="font-bold" style="color: var(--gold-dark);">08.30 – 09.00</p>
+          <p class="font-bold text-lg">Pengumuman Prestasi</p>
         </div>
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">09.00 – 11.00</p>
-          <p class="font-semibold">Prosesi Wisuda</p>
+          <p class="font-bold" style="color: var(--gold-dark);">09.00 – 11.00</p>
+          <p class="font-bold text-lg">Prosesi Wisuda</p>
         </div>
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">11.00 – 11.50</p>
-          <p class="font-semibold">Pengukuhan, Janji Alumni & Persembahan</p>
+          <p class="font-bold" style="color: var(--gold-dark);">11.00 – 11.50</p>
+          <p class="font-bold text-lg">Pengukuhan & Persembahan</p>
         </div>
         <div class="timeline-item">
-          <p class="text-xs font-bold" style="color: var(--gold);">11.50 – 11.55</p>
-          <p class="font-semibold">Penutup</p>
+          <p class="font-bold" style="color: var(--gold-dark);">11.50 – 11.55</p>
+          <p class="font-bold text-lg">Penutup</p>
         </div>
       </div>
 
-      <div class="flex gap-3 mt-10">
-        <button class="btn-outline" onclick="goToPage(0)">
-          <i data-lucide="chevron-left" class="w-4 h-4"></i> Undangan
-        </button>
-        <button class="btn-outline" onclick="goToPage(2)">
-          Penutup <i data-lucide="chevron-right" class="w-4 h-4"></i>
-        </button>
+      <div class="flex gap-4 mt-10">
+        <button class="btn-gold" onclick="goToPage(0)">Undangan</button>
+        <button class="btn-gold" onclick="goToPage(2)">Penutup</button>
       </div>
     </section>
 
-    <!-- PAGE 3: PENUTUP -->
+    <!-- HALAMAN 3: PENUTUP -->
     <section class="page" id="page2">
       <div class="flex justify-center gap-6 mb-10">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16">
       </div>
-      
-      <p class="italic text-lg mb-2" style="font-family:'Cormorant Garamond', serif;">Sampai jumpa di acara</p>
-      <h2 style="font-family:'Playfair Display', serif; font-size: 56px; color: var(--navy); font-weight: 800; line-height: 1;">Wisuda</h2>
-      
+      <p class="italic text-xl mb-2">Sampai jumpa di acara</p>
+      <h2 style="font-family:'Playfair Display', serif; font-size: 60px; color: var(--navy-dark); font-weight: 900;">Wisuda</h2>
       <div class="gold-divider my-6"></div>
-      
-      <div style="font-family:'Cormorant Garamond', serif; font-size: 16px; font-weight: 600;">
-        <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
-      </div>
-
-      <i data-lucide="sparkles" class="mt-10 mb-6" style="color: var(--gold);"></i>
-
-      <button class="btn-outline" onclick="goToPage(0)">
-        <i data-lucide="chevron-left" class="w-4 h-4"></i> Kembali Ke Awal
-      </button>
+      <button class="btn-gold" onclick="goToPage(0)">Kembali Ke Awal</button>
     </section>
   </main>
 
   <script>
-    // Logic Nama dari URL
+    const audio = document.getElementById('bgMusic');
+
+    // Fungsi Mulai Aplikasi & Musik (Volume 60%)
+    function startApp() {
+        document.getElementById('welcomeOverlay').style.display = 'none';
+        audio.volume = 0.6; // Set volume 60%
+        audio.play();
+    }
+
+    // Ambil Nama dari URL
     const params = new URLSearchParams(window.location.search);
     const name = params.get('student');
     if (name) {
       document.getElementById('studentName').innerText = decodeURIComponent(name);
     }
 
-    // Logic Navigasi
+    // Navigasi
     function goToPage(index) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page' + index).classList.add('active');
       window.scrollTo(0,0);
-      
-      // Auto-play music pas klik pertama
-      if(audio.paused) {
-        audio.play().catch(e => console.log("Audio play blocked"));
-        isPlaying = true;
-      }
     }
 
-    // Logic Musik
-    const audio = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicToggle');
-    let isPlaying = false;
-
-    musicBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      isPlaying = !isPlaying;
-    });
-
-    // Init Icons
     lucide.createIcons();
   </script>
 </body>
