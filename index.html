@@ -17,7 +17,7 @@
 
     .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 15px 15px 15px 60px; text-align: center; height: 100%; }
     
-    /* Animasi Fade In Simple untuk Halaman Aktif */
+    /* Animasi Fade In Simple */
     .page.active { 
         display: flex; 
         animation: simpleFade 0.6s ease-out forwards;
@@ -43,7 +43,6 @@
 </head>
 <body>
 
-  <!-- 1. Overlay Awal -->
   <div id="welcomeOverlay">
     <div class="flex gap-6 mb-8 justify-center">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-28 w-auto">
@@ -56,32 +55,27 @@
 
   <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
 
-  <!-- Audio Player -->
+  <!-- Audio Player (Dikosongkan SRC-nya untuk diisi via Script seperti Canva) -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3" type="audio/mpeg">
+    <source id="audioSource" type="audio/mpeg">
   </audio>
 
   <main>
-    <!-- HALAMAN 1 -->
     <section class="page active" id="page0">
       <div class="flex justify-center gap-4 mb-4">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16">
       </div>
-
       <h1 style="font-family:'Playfair Display', serif;">Wisuda</h1>
-      
       <div class="font-bold leading-tight mb-2" style="font-family:'Cormorant Garamond', serif; font-size: 15px;">
         <p>SMA Plus Pembangunan Jaya</p>
         <p>Angkatan XXVII (Virentara)</p>
         <p>Tahun Ajaran 2025/2026</p>
       </div>
-
       <div class="text-sm">
         <p class="italic">Yth. Bapak/Ibu Orang Tua</p>
         <p class="student-name" id="studentName">[Nama Siswa]</p>
       </div>
-
       <div class="card-compact">
         <p class="font-bold text-base">Sabtu, 23 Mei 2026</p>
         <p class="font-bold text-sm" style="color: var(--gold-dark);">07.30 – 11.55 WIB</p>
@@ -89,12 +83,10 @@
         <p class="text-[10px] uppercase font-bold opacity-60">Lokasi Acara:</p>
         <p class="font-bold text-sm">MPH SMA Plus Pembangunan Jaya</p>
       </div>
-
       <p class="font-bold text-[10px] mt-1" style="color: var(--gold-dark);">✦ Undangan berlaku untuk 2 orang ✦</p>
       <button class="btn-gold mt-6" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4"></i></button>
     </section>
 
-    <!-- HALAMAN 2 -->
     <section class="page" id="page1">
       <h2 class="mb-2" style="font-family:'Playfair Display'; font-size: 26px; font-weight: 900;">Susunan Acara</h2>
       <div class="timeline-container">
@@ -112,7 +104,6 @@
       </div>
     </section>
 
-    <!-- HALAMAN 3 -->
     <section class="page" id="page2">
       <div class="flex justify-center gap-4 mb-4">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
@@ -131,6 +122,8 @@
 
   <script>
     const audio = document.getElementById('bgMusic');
+    const audioSource = document.getElementById('audioSource');
+    const musicUrl = 'https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3';
 
     function startInvitation() {
       // 1. Sembunyikan Overlay
@@ -139,18 +132,18 @@
         document.getElementById('welcomeOverlay').style.display = 'none';
       }, 500);
 
-      // 2. Play Musik (Penting: Harus dipicu aksi klik)
-      audio.volume = 0.6;
-      const playPromise = audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Autoplay dicegah, klik sekali lagi di layar.");
-        });
+      // 2. LOGIKA CANVA: Isi SRC dan Play tepat saat klik
+      if (!audio.src || audio.src === "") {
+          audioSource.src = musicUrl;
+          audio.load(); // Load ulang file
       }
+      
+      audio.volume = 0.6;
+      audio.play().catch(error => {
+          console.log("Playback failed:", error);
+      });
     }
 
-    // Ambil Nama dari URL (?student=Nama%20Siswa)
     const urlParams = new URLSearchParams(window.location.search);
     const studentName = urlParams.get('student');
     if (studentName) {
@@ -158,18 +151,18 @@
     }
 
     function goToPage(index) {
-      // Sembunyikan semua halaman
       const pages = document.querySelectorAll('.page');
-      pages.forEach(p => {
-        p.classList.remove('active');
-      });
+      pages.forEach(p => p.classList.remove('active'));
       
-      // Tampilkan halaman target
       const targetPage = document.getElementById('page' + index);
       targetPage.classList.add('active');
+
+      // Re-trigger animasi fade (penting agar tiap pindah halaman selalu animasi)
+      targetPage.style.animation = 'none';
+      targetPage.offsetHeight; // trigger reflow
+      targetPage.style.animation = null;
     }
 
-    // Inisialisasi Icon Lucide
     lucide.createIcons();
   </script>
 </body>
