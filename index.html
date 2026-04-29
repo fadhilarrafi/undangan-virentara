@@ -17,7 +17,6 @@
 
     .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 15px 15px 15px 60px; text-align: center; height: 100%; }
     
-    /* Animasi Fade In Simple */
     .page.active { 
         display: flex; 
         animation: simpleFade 0.6s ease-out forwards;
@@ -43,6 +42,7 @@
 </head>
 <body>
 
+  <!-- Overlay Buka Undangan -->
   <div id="welcomeOverlay">
     <div class="flex gap-6 mb-8 justify-center">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-28 w-auto">
@@ -55,12 +55,13 @@
 
   <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
 
-  <!-- Audio Player (Dikosongkan SRC-nya untuk diisi via Script seperti Canva) -->
+  <!-- Audio Player -->
   <audio id="bgMusic" loop preload="auto">
-    <source id="audioSource" type="audio/mpeg">
+    <source src="https://mp3tourl.com/audio/1777463916690-de100da4-a640-4e60-bb9d-654e381d34c9.mp3" type="audio/mpeg">
   </audio>
 
   <main>
+    <!-- HALAMAN 1 -->
     <section class="page active" id="page0">
       <div class="flex justify-center gap-4 mb-4">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
@@ -83,17 +84,15 @@
         <p class="text-[10px] uppercase font-bold opacity-60">Lokasi Acara:</p>
         <p class="font-bold text-sm">MPH SMA Plus Pembangunan Jaya</p>
       </div>
-      <p class="font-bold text-[10px] mt-1" style="color: var(--gold-dark);">✦ Undangan berlaku untuk 2 orang ✦</p>
       <button class="btn-gold mt-6" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4"></i></button>
     </section>
 
+    <!-- HALAMAN 2 -->
     <section class="page" id="page1">
       <h2 class="mb-2" style="font-family:'Playfair Display'; font-size: 26px; font-weight: 900;">Susunan Acara</h2>
       <div class="timeline-container">
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">07.30 – 08.00</p><p class="font-bold">Pembukaan</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.00 – 08.10</p><p class="font-bold">Pembacaan Doa</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.10 – 08.30</p><p class="font-bold">Sambutan</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.30 – 09.00</p><p class="font-bold">Pengumuman Prestasi</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">09.00 – 11.00</p><p class="font-bold">Prosesi Wisuda</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.00 – 11.50</p><p class="font-bold">Pengukuhan & Janji Alumni</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.50 – 11.55</p><p class="font-bold">Penutup</p></div>
@@ -104,6 +103,7 @@
       </div>
     </section>
 
+    <!-- HALAMAN 3 -->
     <section class="page" id="page2">
       <div class="flex justify-center gap-4 mb-4">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
@@ -111,39 +111,26 @@
       </div>
       <p class="italic text-base">Sampai jumpa di acara</p>
       <h2 style="font-family:'Playfair Display'; font-size: 50px; font-weight: 900; color: var(--navy-dark);">Wisuda</h2>
-      <div class="text-sm font-bold mt-2">
-        <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
-      </div>
       <button class="btn-gold mt-10" onclick="goToPage(0)">Ke Awal</button>
     </section>
   </main>
 
   <script>
     const audio = document.getElementById('bgMusic');
-    const audioSource = document.getElementById('audioSource');
-    const musicUrl = 'https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3';
 
     function startInvitation() {
-      // 1. Sembunyikan Overlay
+      // Sembunyikan Overlay
       document.getElementById('welcomeOverlay').style.opacity = '0';
       setTimeout(() => {
         document.getElementById('welcomeOverlay').style.display = 'none';
       }, 500);
 
-      // 2. LOGIKA CANVA: Isi SRC dan Play tepat saat klik
-      if (!audio.src || audio.src === "") {
-          audioSource.src = musicUrl;
-          audio.load(); // Load ulang file
-      }
-      
-      audio.volume = 0.6;
-      audio.play().catch(error => {
-          console.log("Playback failed:", error);
-      });
+      // Play Musik (Metode Canva: Trigger Langsung)
+      audio.volume = 0.5;
+      audio.play().catch(e => console.log("Audio play error:", e));
     }
 
+    // Ambil Nama Siswa
     const urlParams = new URLSearchParams(window.location.search);
     const studentName = urlParams.get('student');
     if (studentName) {
@@ -157,9 +144,9 @@
       const targetPage = document.getElementById('page' + index);
       targetPage.classList.add('active');
 
-      // Re-trigger animasi fade (penting agar tiap pindah halaman selalu animasi)
+      // Reset Animasi agar muncul tiap kali pindah halaman
       targetPage.style.animation = 'none';
-      targetPage.offsetHeight; // trigger reflow
+      targetPage.offsetHeight;
       targetPage.style.animation = null;
     }
 
