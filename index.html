@@ -12,18 +12,15 @@
     
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; }
 
-    /* Keyframes Animasi */
+    /* Animasi */
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
     @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-    /* Helper Classes Animasi */
     .anim-fade { opacity: 0; }
     .active .anim-fade { animation: fadeInUp 0.8s ease forwards; }
-    .anim-zoom { opacity: 0; animation: zoomIn 1s ease forwards; }
+    .anim-zoom { animation: zoomIn 1s ease forwards; }
     .anim-float { animation: float 3s ease-in-out infinite; }
-    
-    /* Staggered Delay */
     .delay-1 { animation-delay: 0.2s !important; }
     .delay-2 { animation-delay: 0.4s !important; }
     .delay-3 { animation-delay: 0.6s !important; }
@@ -31,43 +28,45 @@
     /* Batik Sidebar */
     .batik-border { position: fixed; top: 0; left: 0; width: 45px; height: 100%; z-index: 40; pointer-events: none; object-fit: cover; opacity: 0.9; }
 
-    /* Overlay Pembuka */
+    /* Overlay Pembuka - Diperbaiki agar Tombol Terlihat */
     #welcomeOverlay { 
-      position: fixed; inset: 0; background: var(--bg); z-index: 100; 
+      position: fixed; inset: 0; background: var(--bg); z-index: 999; 
       display: flex; flex-direction: column; align-items: center; justify-content: center; 
-      text-align: center; padding: 20px; transition: opacity 1s ease, visibility 1s;
+      text-align: center; padding: 20px; transition: all 0.8s ease;
     }
 
-    /* Page System */
     .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 15px 15px 15px 60px; text-align: center; height: 100%; }
     .page.active { display: flex; }
 
-    /* Card & Timeline */
     .card-compact { background: rgba(242, 235, 220, 0.8); border: 1.5px solid var(--gold-dark); border-radius: 12px; padding: 10px; width: 100%; max-width: 300px; margin: 5px 0; }
     .timeline-container { text-align: left; width: 100%; max-width: 290px; font-size: 12px; margin-top: 5px; }
     .timeline-item { position: relative; padding-left: 18px; padding-bottom: 6px; border-left: 1.5px solid var(--gold-dark); margin-left: 5px; }
     .timeline-item::before { content: ''; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--navy-dark); }
-    .timeline-item:last-child { border-left: transparent; }
 
-    /* Buttons */
-    .btn-gold { padding: 10px 28px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 6px; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
+    .btn-gold { 
+      padding: 12px 32px; border: 2px solid var(--gold-dark); color: var(--gold-dark); 
+      border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 16px; 
+      font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; 
+      box-shadow: 0 4px 15px rgba(140, 109, 31, 0.2); z-index: 1001;
+    }
     .btn-gold:active { transform: scale(0.95); background: var(--gold-dark); color: white; }
 
     h1 { font-size: 44px !important; color: var(--gold-dark); font-weight: 900; margin: 0 !important; font-family: 'Playfair Display', serif; }
-    .student-name { font-size: 24px !important; font-weight: 700; margin: 2px 0; color: var(--navy-dark); }
   </style>
 </head>
 <body>
 
-  <!-- 1. Tombol Buka (Pemicu Musik & Animasi) -->
+  <!-- 1. Tombol Buka (Fixed Overlay) -->
   <div id="welcomeOverlay">
-    <div class="flex gap-6 mb-8 justify-center anim-zoom">
+    <div class="anim-zoom flex gap-4 mb-8 justify-center">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-24 w-auto anim-float">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-24 w-auto anim-float" style="animation-delay: 0.5s">
     </div>
-    <h2 class="text-2xl font-bold mb-1 anim-fade delay-1" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
-    <p class="text-base italic mb-10 anim-fade delay-2">SMA Plus Pembangunan Jaya</p>
-    <button onclick="startInvitation()" class="btn-gold anim-fade delay-3">Buka Undangan</button>
+    <div class="anim-fade active delay-1">
+      <h2 class="text-2xl font-bold mb-1" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
+      <p class="text-base italic mb-12">SMA Plus Pembangunan Jaya</p>
+      <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
+    </div>
   </div>
 
   <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
@@ -83,45 +82,36 @@
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16">
       </div>
-
       <h1 class="anim-fade delay-1">Wisuda</h1>
-      
-      <div class="font-bold leading-tight mb-2 anim-fade delay-1" style="font-family:'Cormorant Garamond', serif; font-size: 15px;">
+      <div class="font-bold mb-2 anim-fade delay-1" style="font-family:'Cormorant Garamond'; font-size: 15px;">
         <p>SMA Plus Pembangunan Jaya</p>
         <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
+        <p>2025/2026</p>
       </div>
-
       <div class="text-sm anim-fade delay-2">
         <p class="italic">Yth. Bapak/Ibu Orang Tua</p>
-        <p class="student-name" id="studentName">[Nama Siswa]</p>
+        <p id="studentName" style="font-size: 24px; font-weight: 700; color: var(--navy-dark);">[Nama Siswa]</p>
       </div>
-
       <div class="card-compact anim-fade delay-3">
-        <p class="font-bold text-base">Sabtu, 23 Mei 2026</p>
-        <p class="font-bold text-sm" style="color: var(--gold-dark);">07.30 – 11.55 WIB</p>
+        <p class="font-bold">Sabtu, 23 Mei 2026</p>
+        <p class="font-bold" style="color: var(--gold-dark);">07.30 – 11.55 WIB</p>
         <div class="h-[1px] bg-gray-300 my-1"></div>
-        <p class="text-[10px] uppercase font-bold opacity-60">Lokasi Acara:</p>
+        <p class="text-[10px] font-bold opacity-60 uppercase">Lokasi:</p>
         <p class="font-bold text-sm">MPH SMA Plus Pembangunan Jaya</p>
       </div>
-
-      <p class="font-bold text-[10px] mt-1 anim-fade delay-3" style="color: var(--gold-dark);">✦ Undangan berlaku untuk 2 orang ✦</p>
       <button class="btn-gold mt-6 anim-fade delay-3" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4"></i></button>
     </section>
 
     <!-- HALAMAN 2 -->
     <section class="page" id="page1">
-      <h2 class="mb-2 anim-fade" style="font-family:'Playfair Display'; font-size: 26px; font-weight: 900;">Susunan Acara</h2>
+      <h2 class="mb-4 anim-fade" style="font-family:'Playfair Display'; font-size: 26px; font-weight: 900;">Susunan Acara</h2>
       <div class="timeline-container anim-fade delay-1">
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">07.30 – 08.00</p><p class="font-bold">Pembukaan</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.00 – 08.10</p><p class="font-bold">Pembacaan Doa</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.10 – 08.30</p><p class="font-bold">Sambutan</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.30 – 09.00</p><p class="font-bold">Pengumuman Prestasi</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">09.00 – 11.00</p><p class="font-bold">Prosesi Wisuda</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.00 – 11.50</p><p class="font-bold">Pengukuhan, Janji Alumni & Persembahan</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.50 – 11.55</p><p class="font-bold">Penutup</p></div>
+        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">07.30</p><p class="font-bold">Pembukaan</p></div>
+        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.10</p><p class="font-bold">Sambutan</p></div>
+        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">09.00</p><p class="font-bold">Prosesi Wisuda</p></div>
+        <div class="timeline-item" style="border-left:none"><p class="font-bold" style="color: var(--gold-dark);">11.55</p><p class="font-bold">Penutup</p></div>
       </div>
-      <div class="flex gap-2 mt-4 anim-fade delay-2">
+      <div class="flex gap-2 mt-6 anim-fade delay-2">
         <button class="btn-gold" onclick="goToPage(0)">Kembali</button>
         <button class="btn-gold" onclick="goToPage(2)">Selesai</button>
       </div>
@@ -133,13 +123,8 @@
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16 anim-float">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-16 anim-float" style="animation-delay: 0.5s">
       </div>
-      <p class="italic text-base anim-fade delay-1">Sampai jumpa di acara</p>
-      <h2 class="anim-fade delay-1" style="font-family:'Playfair Display'; font-size: 50px; font-weight: 900; color: var(--navy-dark);">Wisuda</h2>
-      <div class="text-sm font-bold mt-2 anim-fade delay-2">
-        <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
-      </div>
+      <p class="italic anim-fade delay-1">Sampai jumpa di acara</p>
+      <h2 class="anim-fade delay-1" style="font-family:'Playfair Display'; font-size: 50px; font-weight: 900;">Wisuda</h2>
       <button class="btn-gold mt-10 anim-fade delay-3" onclick="goToPage(0)">Ke Awal</button>
     </section>
   </main>
@@ -148,14 +133,12 @@
     const audio = document.getElementById('bgMusic');
 
     function startInvitation() {
-      // Fade out overlay
+      // Sembunyikan Overlay
       const overlay = document.getElementById('welcomeOverlay');
       overlay.style.opacity = '0';
-      setTimeout(() => {
-        overlay.style.visibility = 'hidden';
-      }, 1000);
+      setTimeout(() => { overlay.style.visibility = 'hidden'; }, 800);
 
-      // Start Audio with Fade In effect
+      // Musik Fade In
       audio.volume = 0;
       audio.play().then(() => {
         let vol = 0;
@@ -163,12 +146,9 @@
           if (vol < 0.6) {
             vol += 0.05;
             audio.volume = Math.min(vol, 0.6);
-          } else {
-            clearInterval(fadeIn);
-          }
+          } else { clearInterval(fadeIn); }
         }, 100);
-      }).catch(e => console.log("Audio block:", e));
-      
+      });
       lucide.createIcons();
     }
 
@@ -178,19 +158,16 @@
     function goToPage(index) {
       const pages = document.querySelectorAll('.page');
       pages.forEach(p => p.classList.remove('active'));
-      
       const target = document.getElementById('page' + index);
       target.classList.add('active');
       
-      // Trigger ulang animasi elemen di dalam halaman
-      const animElements = target.querySelectorAll('.anim-fade');
-      animElements.forEach(el => {
+      const anims = target.querySelectorAll('.anim-fade');
+      anims.forEach(el => {
         el.style.animation = 'none';
-        el.offsetHeight; // trigger reflow
+        el.offsetHeight; 
         el.style.animation = '';
       });
     }
-
     lucide.createIcons();
   </script>
 </body>
