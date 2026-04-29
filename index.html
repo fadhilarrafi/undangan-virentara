@@ -11,49 +11,53 @@
     :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; }
     
-    /* Batik Kiri Saja */
     .batik-border { position: fixed; top: 0; left: 0; width: 45px; height: 100%; z-index: 40; pointer-events: none; object-fit: cover; opacity: 0.9; }
 
-    /* Tombol Buka Undangan agar Musik Jalan */
-    #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+    #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
 
     .page { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 15px 15px 15px 60px; text-align: center; height: 100%; }
-    .page.active { display: flex; }
+    
+    /* Animasi Fade In Simple untuk Halaman Aktif */
+    .page.active { 
+        display: flex; 
+        animation: simpleFade 0.6s ease-out forwards;
+    }
+
+    @keyframes simpleFade {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
     .card-compact { background: rgba(242, 235, 220, 0.8); border: 1.5px solid var(--gold-dark); border-radius: 12px; padding: 10px; width: 100%; max-width: 300px; margin: 5px 0; }
-
     .timeline-container { text-align: left; width: 100%; max-width: 290px; font-size: 12px; margin-top: 5px; }
     .timeline-item { position: relative; padding-left: 18px; padding-bottom: 6px; border-left: 1.5px solid var(--gold-dark); margin-left: 5px; }
     .timeline-item::before { content: ''; position: absolute; left: -5px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--navy-dark); }
     .timeline-item:last-child { border-left: transparent; }
 
-    .btn-gold { padding: 10px 28px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 6px; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .btn-gold { padding: 10px 28px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 6px; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; transition: all 0.3s; }
+    .btn-gold:active { transform: scale(0.95); background: #fdfaf3; }
 
     h1 { font-size: 44px !important; color: var(--gold-dark); font-weight: 900; margin: 0 !important; }
     .student-name { font-size: 24px !important; font-weight: 700; margin: 2px 0; color: var(--navy-dark); }
-    
-    /* Animasi */
-    .fade-in { animation: fadeIn 0.8s ease forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
-  <!-- 1. Tombol Buka (WAJIB UNTUK MUSIK) -->
+  <!-- 1. Overlay Awal -->
   <div id="welcomeOverlay">
-    <div class="flex gap-6 mb-8 justify-center fade-in">
+    <div class="flex gap-6 mb-8 justify-center">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-28 w-auto">
         <img src="https://i.ibb.co.com/LdkwXvbr/background-removal-TUFISUt-Na-Hct-MVkj-MSM2-Y2-Fm-Mjhh-NTNh-Mz-Ri-Yz-Bi-NTFl-MTQ3-ZGQx-Nm-Ey-ZTRm-MCMx.png" class="h-28 w-auto">
     </div>
-    <h2 class="text-2xl font-bold mb-1 fade-in" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
-    <p class="text-base italic mb-10 fade-in">SMA Plus Pembangunan Jaya</p>
-    <button onclick="startInvitation()" class="btn-gold fade-in">Buka Undangan</button>
+    <h2 class="text-2xl font-bold mb-1" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
+    <p class="text-base italic mb-10">SMA Plus Pembangunan Jaya</p>
+    <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
 
   <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
 
-  <!-- 2. Audio Player (Volume 60% via Script) -->
-  <audio id="bgMusic" loop>
+  <!-- Audio Player -->
+  <audio id="bgMusic" loop preload="auto">
     <source src="https://inclined-silver-scwzbundyn.edgeone.app/Howl%27s%20Moving%20Castle%20[OST%20-%20Theme%20Song]%20-%20ghibliggy%20(128k).mp3" type="audio/mpeg">
   </audio>
 
@@ -99,7 +103,7 @@
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.10 – 08.30</p><p class="font-bold">Sambutan</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">08.30 – 09.00</p><p class="font-bold">Pengumuman Prestasi</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">09.00 – 11.00</p><p class="font-bold">Prosesi Wisuda</p></div>
-        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.00 – 11.50</p><p class="font-bold">Pengukuhan, Janji Alumni & Persembahan</p></div>
+        <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.00 – 11.50</p><p class="font-bold">Pengukuhan & Janji Alumni</p></div>
         <div class="timeline-item"><p class="font-bold" style="color: var(--gold-dark);">11.50 – 11.55</p><p class="font-bold">Penutup</p></div>
       </div>
       <div class="flex gap-2 mt-4">
@@ -128,26 +132,44 @@
   <script>
     const audio = document.getElementById('bgMusic');
 
-    // Fungsi Kunci: Musik Jalan Saat Tombol Diklik
     function startInvitation() {
-      document.getElementById('welcomeOverlay').style.display = 'none';
-      audio.volume = 0.6; // Set 60%
-      audio.play().catch(e => {
-        console.log("Audio play error, retrying...", e);
-        // Backup: Coba play lagi jika gagal
-        setTimeout(() => audio.play(), 100);
-      });
+      // 1. Sembunyikan Overlay
+      document.getElementById('welcomeOverlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('welcomeOverlay').style.display = 'none';
+      }, 500);
+
+      // 2. Play Musik (Penting: Harus dipicu aksi klik)
+      audio.volume = 0.6;
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Autoplay dicegah, klik sekali lagi di layar.");
+        });
+      }
     }
 
-    // Ambil Nama dari URL
-    const name = new URLSearchParams(window.location.search).get('student');
-    if (name) document.getElementById('studentName').innerText = decodeURIComponent(name);
+    // Ambil Nama dari URL (?student=Nama%20Siswa)
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentName = urlParams.get('student');
+    if (studentName) {
+      document.getElementById('studentName').innerText = decodeURIComponent(studentName);
+    }
 
     function goToPage(index) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + index).classList.add('active');
+      // Sembunyikan semua halaman
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => {
+        p.classList.remove('active');
+      });
+      
+      // Tampilkan halaman target
+      const targetPage = document.getElementById('page' + index);
+      targetPage.classList.add('active');
     }
 
+    // Inisialisasi Icon Lucide
     lucide.createIcons();
   </script>
 </body>
