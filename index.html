@@ -11,7 +11,6 @@
     :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
     
-    /* Batik sebagai overlay agar tidak mendorong konten */
     .batik-border { 
         position: fixed; 
         top: 0; 
@@ -26,7 +25,6 @@
 
     #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
 
-    /* Main mengambil lebar penuh tanpa gangguan padding */
     main { 
         display: flex; 
         flex-direction: column; 
@@ -43,8 +41,9 @@
         justify-content: center; 
         height: 100%; 
         width: 100%; 
-        /* Padding horizontal seimbang agar benar-benar center */
-        padding: 0 40px; 
+        /* Padding kiri dan kanan dibuat sama (65px) agar center presisi */
+        padding-left: 65px; 
+        padding-right: 65px;
         text-align: center;
         margin: 0 auto;
     }
@@ -87,7 +86,6 @@
     <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
 
-  <!-- Batik berada di depan (overlay) agar tidak memakan space layout -->
   <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
 
   <audio id="bgMusic" loop preload="auto">
