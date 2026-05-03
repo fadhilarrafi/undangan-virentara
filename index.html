@@ -15,14 +15,18 @@
         position: fixed; 
         top: 0; 
         left: 0; 
-        width: 60px; 
+        width: 60px; /* Tetap 60px agar tidak makan tempat */
         height: 100%; 
         z-index: 40; 
         pointer-events: none; 
-        object-fit: cover; 
-        opacity: 0.95; 
+        
+        /* PERUBAHAN DI SINI */
+        object-fit: contain; /* Mengatur agar gambar tidak terpotong */
+        object-position: left top; /* Memastikan menempel di pojok kiri atas */
+        background-repeat: repeat-y; /* Mengulang gambar ke bawah jika gambar asli pendek */
+        background-image: url('https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png');
+        background-size: 60px auto; /* Memaksa lebar motif sesuai 60px */
     }
-
     #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
 
     main { 
