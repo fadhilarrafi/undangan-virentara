@@ -48,42 +48,37 @@
     .schedule-event { font-family: 'Lora', serif; font-weight: 700; font-size: 15px; color: var(--navy-dark); display: block; }
     .schedule-divider { width: 25px; height: 1px; background: rgba(197, 163, 71, 0.2); margin: 6px auto 0; }
 
-    /* --- IMPROVED MINIMALIST BUTTON DESIGN --- */
+    /* --- UPDATED BUTTON DESIGN --- */
     .btn-gold { 
-        padding: 10px 30px; 
-        background-color: var(--gold-dark);
-        color: #FFFFFF; 
-        border: 1px solid var(--gold-dark);
-        border-radius: 4px; /* Square rounded tipis agar terlihat formal & clean */
+        padding: 12px 32px; 
+        /* Warna tidak solid, menggunakan rgba agar menyatu dengan background */
+        background-color: rgba(140, 109, 31, 0.15); 
+        color: var(--gold-dark); 
+        border: 1px solid rgba(140, 109, 31, 0.3);
+        border-radius: 12px; /* Agak rounded corner */
         font-family: 'Cormorant Garamond', serif; 
         font-size: 15px; 
-        font-weight: 600; 
+        font-weight: 700; 
         cursor: pointer; 
         text-transform: uppercase; 
         letter-spacing: 2px;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
 
     .btn-gold:hover {
-        background-color: transparent;
-        color: var(--gold-dark);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .btn-gold:active {
-        transform: translateY(1px);
+        background-color: var(--gold-dark);
+        color: white;
     }
 
     .btn-outline {
         background: transparent;
         color: var(--gold-dark);
-        border: 1px solid rgba(140, 109, 31, 0.4);
+        border: 1px solid rgba(140, 109, 31, 0.2);
         padding: 10px 24px;
-        border-radius: 4px;
+        border-radius: 10px; /* Matching rounded corner */
         font-family: 'Cormorant Garamond', serif;
         font-size: 13px;
         font-weight: 600;
@@ -92,19 +87,16 @@
         transition: all 0.3s ease;
     }
 
-    .btn-outline:hover {
-        border-color: var(--gold-dark);
-        background-color: rgba(140, 109, 31, 0.05);
-    }
-
-    /* Music Toggle Design */
+    /* Music Toggle - No Circle, Clean Icon Only */
     #musicToggle { 
-        position: fixed; top: 15px; right: 15px; z-index: 50; 
-        background: transparent; 
+        position: fixed; top: 20px; right: 20px; z-index: 50; 
+        background: none; 
         border: none; 
         display: none; align-items: center; justify-content: center; 
         color: var(--gold-dark);
-        opacity: 0.7;
+        opacity: 0.6;
+        cursor: pointer;
+        padding: 0;
     }
 
     .card-info { 
@@ -118,8 +110,9 @@
 </head>
 <body>
 
+  <!-- Tombol musik tanpa lingkaran -->
   <button id="musicToggle" onclick="toggleMusic()">
-    <i data-lucide="music" id="musicIcon" class="w-5 h-5"></i>
+    <i data-lucide="music" id="musicIcon" class="w-6 h-6"></i>
   </button>
 
   <div id="welcomeOverlay">
@@ -187,37 +180,26 @@
           <span class="schedule-event">Pembukaan</span>
           <div class="schedule-divider"></div>
         </div>
-
         <div class="schedule-item">
           <span class="schedule-time">08.00 – 08.10</span>
           <span class="schedule-event">Pembacaan Doa</span>
           <div class="schedule-divider"></div>
         </div>
-
         <div class="schedule-item">
           <span class="schedule-time">08.10 – 08.30</span>
           <span class="schedule-event">Sambutan-Sambutan</span>
           <div class="schedule-divider"></div>
         </div>
-
         <div class="schedule-item">
           <span class="schedule-time">08.30 – 09.00</span>
           <span class="schedule-event">Pengumuman Prestasi</span>
           <div class="schedule-divider"></div>
         </div>
-
         <div class="schedule-item">
           <span class="schedule-time">09.00 – 11.00</span>
           <span class="schedule-event">Prosesi Wisuda</span>
           <div class="schedule-divider"></div>
         </div>
-
-        <div class="schedule-item">
-          <span class="schedule-time">11.00 – 11.50</span>
-          <span class="schedule-event">Pengukuhan & Persembahan</span>
-          <div class="schedule-divider"></div>
-        </div>
-
         <div class="schedule-item">
           <span class="schedule-time">11.50 – 11.55</span>
           <span class="schedule-event">Penutup</span>
