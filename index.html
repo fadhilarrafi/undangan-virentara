@@ -11,12 +11,11 @@
     :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
     
-    /* 1. Batik Border Lebih Tebal */
     .batik-border { 
         position: fixed; 
         top: 0; 
         left: 0; 
-        width: 100px; 
+        width: 130px; 
         height: 100%; 
         z-index: 40; 
         pointer-events: none; 
@@ -35,7 +34,6 @@
         z-index: 10;
     }
 
-    /* 2. Padding disesuaikan agar konten tidak tertutup batik */
     .page { 
         display: none; 
         flex-direction: column; 
@@ -43,8 +41,8 @@
         justify-content: center; 
         height: 100%; 
         width: 100%; 
-        padding-left: 110px; 
-        padding-right: 30px;
+        padding-left: 100px; 
+        padding-right: 35px;
         text-align: center;
         box-sizing: border-box;
     }
@@ -54,6 +52,46 @@
     @keyframes simpleFade {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Style Baru untuk Susunan Acara */
+    .schedule-container {
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 10px;
+    }
+    
+    .schedule-item {
+        text-align: center;
+    }
+
+    .schedule-time {
+        font-family: 'Cormorant Garamond', serif;
+        color: #C5A347;
+        font-weight: 700;
+        font-size: 18px;
+        display: block;
+        line-height: 1;
+        margin-bottom: 2px;
+    }
+
+    .schedule-event {
+        font-family: 'Lora', serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--navy-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .schedule-divider {
+        width: 40px;
+        height: 1px;
+        background: rgba(197, 163, 71, 0.3);
+        margin: 10px auto 0;
     }
 
     .card-info { 
@@ -72,38 +110,6 @@
 
     h1 { font-family: 'Playfair Display', serif; font-size: 52px !important; color: #C5A347; font-weight: 900; margin: 4px 0 !important; line-height: 1; }
     .text-serif { font-family: 'Cormorant Garamond', serif; }
-    
-    /* 3. Perbaikan Timeline Agar Rapi dan Lebih Besar */
-    .timeline-container { 
-        text-align: left; 
-        width: 100%; 
-        max-width: 320px; 
-        margin-top: 10px; 
-    }
-    .timeline-item { 
-        position: relative; 
-        padding-left: 28px; 
-        padding-bottom: 18px; 
-        border-left: 2px solid var(--gold-dark); 
-        margin-left: 8px; 
-    }
-    .timeline-item::before { 
-        content: ''; 
-        position: absolute; 
-        left: -7px; 
-        top: 4px; 
-        width: 12px; 
-        height: 12px; 
-        border-radius: 50%; 
-        background: var(--navy-dark); 
-        border: 2px solid var(--gold-dark); 
-        z-index: 2;
-    }
-    .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
-    
-    .timeline-time { font-size: 14px; color: var(--gold-dark); font-weight: 800; display: block; margin-bottom: 2px; }
-    .timeline-content { font-size: 16px; font-weight: 700; color: var(--navy-dark); line-height: 1.2; }
-
   </style>
 </head>
 <body>
@@ -165,38 +171,50 @@
       <button class="btn-gold" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4 ml-1"></i></button>
     </section>
 
-    <!-- HALAMAN 2: Susunan Acara Ter-Update -->
+    <!-- HALAMAN 2: SUSUNAN ACARA (UPDATED) -->
     <section class="page" id="page1">
       <h2 class="mb-6" style="font-family:'Playfair Display'; font-size: 32px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
       
-      <div class="timeline-container">
-        <div class="timeline-item">
-            <span class="timeline-time">07.30 – 08.00</span>
-            <p class="timeline-content">Pembukaan</p>
+      <div class="schedule-container">
+        <div class="schedule-item">
+          <span class="schedule-time">07.30 – 08.00</span>
+          <span class="schedule-event">Pembukaan</span>
+          <div class="schedule-divider"></div>
         </div>
-        <div class="timeline-item">
-            <span class="timeline-time">08.00 – 08.10</span>
-            <p class="timeline-content">Pembacaan Doa</p>
+
+        <div class="schedule-item">
+          <span class="schedule-time">08.00 – 08.10</span>
+          <span class="schedule-event">Pembacaan Doa</span>
+          <div class="schedule-divider"></div>
         </div>
-        <div class="timeline-item">
-            <span class="timeline-time">08.10 – 08.30</span>
-            <p class="timeline-content">Sambutan-sambutan</p>
+
+        <div class="schedule-item">
+          <span class="schedule-time">08.10 – 08.30</span>
+          <span class="schedule-event">Sambutan-Sambutan</span>
+          <div class="schedule-divider"></div>
         </div>
-        <div class="timeline-item">
-            <span class="timeline-time">08.30 – 09.00</span>
-            <p class="timeline-content">Pengumuman Prestasi</p>
+
+        <div class="schedule-item">
+          <span class="schedule-time">08.30 – 09.00</span>
+          <span class="schedule-event">Pengumuman Prestasi</span>
+          <div class="schedule-divider"></div>
         </div>
-        <div class="timeline-item">
-            <span class="timeline-time">09.00 – 11.00</span>
-            <p class="timeline-content">Prosesi Wisuda</p>
+
+        <div class="schedule-item">
+          <span class="schedule-time">09.00 – 11.00</span>
+          <span class="schedule-event">Prosesi Wisuda</span>
+          <div class="schedule-divider"></div>
         </div>
-        <div class="timeline-item">
-            <span class="timeline-time">11.00 – 11.50</span>
-            <p class="timeline-content">Pengukuhan & Persembahan</p>
+
+        <div class="schedule-item">
+          <span class="schedule-time">11.00 – 11.50</span>
+          <span class="schedule-event">Pengukuhan & Persembahan</span>
+          <div class="schedule-divider"></div>
         </div>
-        <div class="timeline-item">
-            <span class="timeline-time">11.50 – 11.55</span>
-            <p class="timeline-content">Penutup</p>
+
+        <div class="schedule-item">
+          <span class="schedule-time">11.50 – 11.55</span>
+          <span class="schedule-event">Penutup</span>
         </div>
       </div>
 
