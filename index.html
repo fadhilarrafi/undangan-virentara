@@ -12,39 +12,18 @@
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
     
     .batik-border { 
-        position: fixed; 
-        top: 0; 
-        left: 0; 
-        width: 130px; 
-        height: 100%; 
-        z-index: 40; 
-        pointer-events: none; 
-        object-fit: cover; 
-        opacity: 0.95; 
+        position: fixed; top: 0; left: 0; width: 130px; height: 100%; z-index: 40; 
+        pointer-events: none; object-fit: cover; opacity: 0.95; 
     }
 
     #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
 
-    main { 
-        display: flex; 
-        flex-direction: column; 
-        height: 100%; 
-        width: 100%; 
-        position: relative; 
-        z-index: 10;
-    }
+    main { display: flex; flex-direction: column; height: 100%; width: 100%; position: relative; z-index: 10; }
 
     .page { 
-        display: none; 
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
-        height: 100%; 
-        width: 100%; 
-        padding-left: 100px; 
-        padding-right: 35px;
-        text-align: center;
-        box-sizing: border-box;
+        display: none; flex-direction: column; align-items: center; justify-content: center; 
+        height: 100%; width: 100%; padding-left: 110px; padding-right: 40px;
+        text-align: center; box-sizing: border-box;
     }
     
     .page.active { display: flex; animation: simpleFade 0.6s ease-out forwards; }
@@ -54,57 +33,56 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Style Baru untuk Susunan Acara */
+    /* Style Susunan Acara - Optimized */
     .schedule-container {
         width: 100%;
         max-width: 320px;
         display: flex;
         flex-direction: column;
-        gap: 14px;
-        margin-top: 10px;
+        gap: 16px; /* Jarak antar item sedikit diperlebar */
+        margin: 10px 0;
     }
     
-    .schedule-item {
-        text-align: center;
-    }
+    .schedule-item { text-align: center; }
 
     .schedule-time {
         font-family: 'Cormorant Garamond', serif;
-        color: #C5A347;
+        color: var(--gold-dark);
         font-weight: 700;
-        font-size: 18px;
-        display: block;
-        line-height: 1;
-        margin-bottom: 2px;
+        font-size: 19px;
+        display: inline-block;
+        background: rgba(197, 163, 71, 0.08); /* Highlight tipis untuk jam */
+        padding: 2px 12px;
+        border-radius: 20px;
+        margin-bottom: 4px;
     }
 
     .schedule-event {
         font-family: 'Lora', serif;
         font-weight: 700;
-        font-size: 16px;
+        font-size: 17px;
         color: var(--navy-dark);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        display: block;
     }
 
     .schedule-divider {
-        width: 40px;
+        width: 30px;
         height: 1px;
         background: rgba(197, 163, 71, 0.3);
-        margin: 10px auto 0;
+        margin: 12px auto 0;
     }
 
     .card-info { 
-        background: rgba(234, 230, 218, 0.5); 
-        border: 1.5px solid #D1C7B1; 
-        border-radius: 14px; 
-        padding: 16px 12px; 
-        width: 100%; 
-        max-width: 310px; 
-        margin: 15px 0; 
+        background: rgba(234, 230, 218, 0.5); border: 1.5px solid #D1C7B1; 
+        border-radius: 14px; padding: 16px 12px; width: 100%; max-width: 310px; margin: 15px 0; 
     }
     
-    .btn-gold { padding: 10px 28px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .btn-gold { 
+        padding: 10px 28px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); 
+        border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 15px; 
+        font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; 
+        transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+    }
 
     #musicToggle { position: fixed; top: 15px; right: 15px; z-index: 50; background: rgba(255,255,255,0.8); border: 1px solid var(--gold-dark); border-radius: 50%; width: 36px; height: 36px; display: none; align-items: center; justify-content: center; color: var(--gold-dark); }
 
@@ -171,9 +149,9 @@
       <button class="btn-gold" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4 ml-1"></i></button>
     </section>
 
-    <!-- HALAMAN 2: SUSUNAN ACARA (UPDATED) -->
+    <!-- HALAMAN 2: SUSUNAN ACARA (MODIFIED) -->
     <section class="page" id="page1">
-      <h2 class="mb-6" style="font-family:'Playfair Display'; font-size: 32px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
+      <h2 class="mb-8" style="font-family:'Playfair Display'; font-size: 30px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
       
       <div class="schedule-container">
         <div class="schedule-item">
@@ -218,7 +196,7 @@
         </div>
       </div>
 
-      <div class="flex gap-4 mt-8">
+      <div class="flex gap-4 mt-10">
         <button class="btn-gold text-xs px-6" onclick="goToPage(0)">Kembali</button>
         <button class="btn-gold text-xs px-6" onclick="goToPage(2)">Selesai</button>
       </div>
