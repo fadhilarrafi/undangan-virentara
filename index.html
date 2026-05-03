@@ -11,17 +11,19 @@
     :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
     
+    /* 1. Batik Border Lebih Tebal */
     .batik-border { 
         position: fixed; 
         top: 0; 
         left: 0; 
-        width: 130px; /* Diubah dari 60px menjadi 100px agar lebih tebal */
+        width: 100px; 
         height: 100%; 
         z-index: 40; 
         pointer-events: none; 
         object-fit: cover; 
         opacity: 0.95; 
     }
+
     #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
 
     main { 
@@ -33,15 +35,16 @@
         z-index: 10;
     }
 
-        .page { 
+    /* 2. Padding disesuaikan agar konten tidak tertutup batik */
+    .page { 
         display: none; 
         flex-direction: column; 
         align-items: center; 
         justify-content: center; 
         height: 100%; 
         width: 100%; 
-        padding-left: 100px; /* Ditambah (sebelumnya 75px) agar konten tetap di tengah */
-        padding-right: 35px;
+        padding-left: 110px; 
+        padding-right: 30px;
         text-align: center;
         box-sizing: border-box;
     }
@@ -70,10 +73,37 @@
     h1 { font-family: 'Playfair Display', serif; font-size: 52px !important; color: #C5A347; font-weight: 900; margin: 4px 0 !important; line-height: 1; }
     .text-serif { font-family: 'Cormorant Garamond', serif; }
     
-    .timeline-container { text-align: left; width: 100%; max-width: 280px; font-size: 12px; margin-top: 4px; }
-    .timeline-item { position: relative; padding-left: 20px; padding-bottom: 10px; border-left: 1.5px solid var(--gold-dark); margin-left: 5px; }
-    .timeline-item::before { content: ''; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--navy-dark); border: 1px solid var(--gold-dark); }
-    .timeline-item:last-child { border-left: transparent; padding-bottom: 0; }
+    /* 3. Perbaikan Timeline Agar Rapi dan Lebih Besar */
+    .timeline-container { 
+        text-align: left; 
+        width: 100%; 
+        max-width: 320px; 
+        margin-top: 10px; 
+    }
+    .timeline-item { 
+        position: relative; 
+        padding-left: 28px; 
+        padding-bottom: 18px; 
+        border-left: 2px solid var(--gold-dark); 
+        margin-left: 8px; 
+    }
+    .timeline-item::before { 
+        content: ''; 
+        position: absolute; 
+        left: -7px; 
+        top: 4px; 
+        width: 12px; 
+        height: 12px; 
+        border-radius: 50%; 
+        background: var(--navy-dark); 
+        border: 2px solid var(--gold-dark); 
+        z-index: 2;
+    }
+    .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+    
+    .timeline-time { font-size: 14px; color: var(--gold-dark); font-weight: 800; display: block; margin-bottom: 2px; }
+    .timeline-content { font-size: 16px; font-weight: 700; color: var(--navy-dark); line-height: 1.2; }
+
   </style>
 </head>
 <body>
@@ -85,7 +115,6 @@
   <div id="welcomeOverlay">
     <div class="flex gap-4 mb-6 justify-center items-center">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-24 w-auto">
-        <!-- Logo Angkatan Baru -->
         <img src="https://i.ibb.co.com/JF0Ymr95/Untitled-210-x-133-mm.png" class="h-20 w-auto">
     </div>
     <h2 class="text-2xl font-bold mb-1" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
@@ -104,7 +133,6 @@
     <section class="page active" id="page0">
       <div class="flex justify-center items-center gap-5 mb-4">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
-        <!-- Logo Angkatan Baru -->
         <img src="https://i.ibb.co.com/JF0Ymr95/Untitled-210-x-133-mm.png" class="h-14">
       </div>
 
@@ -137,21 +165,44 @@
       <button class="btn-gold" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4 ml-1"></i></button>
     </section>
 
-    <!-- HALAMAN 2 -->
+    <!-- HALAMAN 2: Susunan Acara Ter-Update -->
     <section class="page" id="page1">
-      <h2 class="mb-5" style="font-family:'Playfair Display'; font-size: 28px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
+      <h2 class="mb-6" style="font-family:'Playfair Display'; font-size: 32px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
+      
       <div class="timeline-container">
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">07.30 – 08.00</p><p class="font-bold">Pembukaan</p></div>
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">08.00 – 08.10</p><p class="font-bold">Pembacaan Doa</p></div>
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">08.10 – 08.30</p><p class="font-bold">Sambutan</p></div>
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">08.30 – 09.00</p><p class="font-bold">Pengumuman Prestasi</p></div>
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">09.00 – 11.00</p><p class="font-bold">Prosesi Wisuda</p></div>
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">11.00 – 11.50</p><p class="font-bold leading-tight">Pengukuhan & Persembahan</p></div>
-        <div class="timeline-item"><p class="font-bold text-[#C5A347]">11.50 – 11.55</p><p class="font-bold">Penutup</p></div>
+        <div class="timeline-item">
+            <span class="timeline-time">07.30 – 08.00</span>
+            <p class="timeline-content">Pembukaan</p>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">08.00 – 08.10</span>
+            <p class="timeline-content">Pembacaan Doa</p>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">08.10 – 08.30</span>
+            <p class="timeline-content">Sambutan-sambutan</p>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">08.30 – 09.00</span>
+            <p class="timeline-content">Pengumuman Prestasi</p>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">09.00 – 11.00</span>
+            <p class="timeline-content">Prosesi Wisuda</p>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">11.00 – 11.50</span>
+            <p class="timeline-content">Pengukuhan & Persembahan</p>
+        </div>
+        <div class="timeline-item">
+            <span class="timeline-time">11.50 – 11.55</span>
+            <p class="timeline-content">Penutup</p>
+        </div>
       </div>
-      <div class="flex gap-3 mt-8">
-        <button class="btn-gold text-xs px-5" onclick="goToPage(0)">Kembali</button>
-        <button class="btn-gold text-xs px-5" onclick="goToPage(2)">Selesai</button>
+
+      <div class="flex gap-4 mt-8">
+        <button class="btn-gold text-xs px-6" onclick="goToPage(0)">Kembali</button>
+        <button class="btn-gold text-xs px-6" onclick="goToPage(2)">Selesai</button>
       </div>
     </section>
 
@@ -159,7 +210,6 @@
     <section class="page" id="page2">
       <div class="flex justify-center gap-6 mb-6">
         <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-20">
-        <!-- Logo Angkatan Baru -->
         <img src="https://i.ibb.co.com/JF0Ymr95/Untitled-210-x-133-mm.png" class="h-16">
       </div>
       <p class="italic text-lg">Sampai jumpa di acara</p>
@@ -169,7 +219,6 @@
         <p>Angkatan XXVII (Virentara)</p>
         <p>Tahun Ajaran 2025/2026</p>
       </div>
-      <!-- Teks Tombol Diganti Jadi Kembali -->
       <button class="btn-gold mt-10" onclick="goToPage(0)">Kembali</button>
     </section>
   </main>
