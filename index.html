@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root { --gold-dark: #8C6D1F; --navy-dark: #0A1D37; --bg: #FAF6ED; }
+    :root { --gold-dark: #8C6D1F; --gold-light: #C5A347; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
     
     .batik-border { 
@@ -33,43 +33,70 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Style Susunan Acara - Compact & Centered */
+    /* Style Susunan Acara - Compact */
     .schedule-container {
         width: 100%;
         max-width: 300px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px; /* Dibuat lebih rapat agar compact */
-        margin: 5px 0;
+        display: flex; flex-direction: column; gap: 8px; margin: 5px 0;
     }
-    
     .schedule-item { text-align: center; }
-
     .schedule-time {
         font-family: 'Cormorant Garamond', serif;
+        color: var(--gold-dark); font-weight: 700; font-size: 17px;
+        display: inline-block; background: rgba(197, 163, 71, 0.08);
+        padding: 1px 10px; border-radius: 20px; margin-bottom: 2px;
+    }
+    .schedule-event { font-family: 'Lora', serif; font-weight: 700; font-size: 15px; color: var(--navy-dark); display: block; }
+    .schedule-divider { width: 25px; height: 1px; background: rgba(197, 163, 71, 0.2); margin: 6px auto 0; }
+
+    /* --- NEW BUTTON DESIGN --- */
+    .btn-gold { 
+        padding: 12px 32px; 
+        border: 1px solid var(--gold-dark); 
+        color: white; 
+        border-radius: 50px; /* Lebih rounded agar modern */
+        font-family: 'Cormorant Garamond', serif; 
+        font-size: 16px; 
+        font-weight: 700; 
+        background: linear-gradient(135deg, #8C6D1F 0%, #C5A347 100%); /* Gradien emas */
+        cursor: pointer; 
+        text-transform: uppercase; 
+        letter-spacing: 1.5px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        box-shadow: 0 4px 15px rgba(140, 109, 31, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-gold:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 8px rgba(140, 109, 31, 0.2);
+    }
+
+    /* Tombol sekunder (Kembali) */
+    .btn-outline {
+        background: transparent;
         color: var(--gold-dark);
+        border: 1.5px solid var(--gold-dark);
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 14px;
         font-weight: 700;
-        font-size: 17px; /* Sedikit lebih kecil agar compact */
-        display: inline-block;
-        background: rgba(197, 163, 71, 0.08);
-        padding: 1px 10px;
-        border-radius: 20px;
-        margin-bottom: 2px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s;
     }
 
-    .schedule-event {
-        font-family: 'Lora', serif;
-        font-weight: 700;
-        font-size: 15px; /* Disesuaikan agar lebih rapi */
-        color: var(--navy-dark);
-        display: block;
-    }
-
-    .schedule-divider {
-        width: 25px;
-        height: 1px;
-        background: rgba(197, 163, 71, 0.2);
-        margin: 6px auto 0;
+    /* Music Toggle Design */
+    #musicToggle { 
+        position: fixed; top: 15px; right: 15px; z-index: 50; 
+        background: white; 
+        border: 1px solid rgba(140, 109, 31, 0.3); 
+        border-radius: 50%; width: 40px; height: 40px; 
+        display: none; align-items: center; justify-content: center; 
+        color: var(--gold-dark);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .card-info { 
@@ -77,15 +104,6 @@
         border-radius: 14px; padding: 16px 12px; width: 100%; max-width: 310px; margin: 15px 0; 
     }
     
-    .btn-gold { 
-        padding: 10px 28px; border: 1.5px solid var(--gold-dark); color: var(--gold-dark); 
-        border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 15px; 
-        font-weight: 700; background: white; cursor: pointer; text-transform: uppercase; 
-        transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
-    }
-
-    #musicToggle { position: fixed; top: 15px; right: 15px; z-index: 50; background: rgba(255,255,255,0.8); border: 1px solid var(--gold-dark); border-radius: 50%; width: 36px; height: 36px; display: none; align-items: center; justify-content: center; color: var(--gold-dark); }
-
     h1 { font-family: 'Playfair Display', serif; font-size: 52px !important; color: #C5A347; font-weight: 900; margin: 4px 0 !important; line-height: 1; }
     .text-serif { font-family: 'Cormorant Garamond', serif; }
   </style>
@@ -146,10 +164,12 @@
 
       <p class="font-bold text-[10px] text-[#C5A347] tracking-widest mb-6">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
       
-      <button class="btn-gold" onclick="goToPage(1)">Susunan Acara <i data-lucide="chevron-right" class="inline w-4 h-4 ml-1"></i></button>
+      <button class="btn-gold flex items-center gap-2" onclick="goToPage(1)">
+        Susunan Acara <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
     </section>
 
-    <!-- HALAMAN 2: SUSUNAN ACARA (COMPACT) -->
+    <!-- HALAMAN 2 -->
     <section class="page" id="page1">
       <h2 class="mb-4" style="font-family:'Playfair Display'; font-size: 28px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
       
@@ -197,8 +217,8 @@
       </div>
 
       <div class="flex gap-3 mt-6">
-        <button class="btn-gold text-xs px-6" onclick="goToPage(0)">Kembali</button>
-        <button class="btn-gold text-xs px-6" onclick="goToPage(2)">Selesai</button>
+        <button class="btn-outline" onclick="goToPage(0)">Kembali</button>
+        <button class="btn-gold" onclick="goToPage(2)">Selesai</button>
       </div>
     </section>
 
@@ -215,7 +235,7 @@
         <p>Angkatan XXVII (Virentara)</p>
         <p>Tahun Ajaran 2025/2026</p>
       </div>
-      <button class="btn-gold mt-10" onclick="goToPage(0)">Kembali</button>
+      <button class="btn-gold mt-10" onclick="goToPage(0)">Kembali Ke Awal</button>
     </section>
   </main>
 
