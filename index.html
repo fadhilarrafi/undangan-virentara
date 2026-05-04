@@ -23,7 +23,12 @@
         pointer-events: none; object-fit: cover; opacity: 0.95; 
     }
 
-    #welcomeOverlay { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: opacity 0.5s ease; }
+    /* Overlay transisi diperlambat menjadi 1.2s */
+    #welcomeOverlay { 
+        position: fixed; inset: 0; background: var(--bg); z-index: 100; 
+        display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        text-align: center; padding: 20px; transition: opacity 1.2s ease; 
+    }
 
     main { display: flex; flex-direction: column; height: 100%; width: 100%; position: relative; z-index: 10; }
 
@@ -33,10 +38,14 @@
         text-align: center; box-sizing: border-box;
     }
     
-    .page.active { display: flex; animation: simpleFade 0.6s ease-out forwards; }
+    /* Animasi konten masuk diperlambat menjadi 1.5s dengan efek cinematic */
+    .page.active { 
+        display: flex; 
+        animation: simpleFade 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+    }
 
     @keyframes simpleFade {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
@@ -120,7 +129,6 @@
 
   <div id="welcomeOverlay">
     <div class="flex gap-4 mb-6 justify-center items-center">
-        <!-- ASET LOKAL -->
         <img src="/logosekolah.png" class="h-24 w-auto">
         <img src="/logoangkatan.png" class="h-20 w-auto">
     </div>
@@ -129,7 +137,6 @@
     <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
 
-  <!-- ASET LOKAL: Batik Border -->
   <img src="/batikborder.png" class="batik-border">
 
   <audio id="bgMusic" loop preload="auto">
@@ -139,7 +146,6 @@
   <main>
     <section class="page active" id="page0">
       <div class="flex justify-center items-center gap-5 mb-4">
-        <!-- ASET LOKAL -->
         <img src="/logosekolah.png" class="h-16">
         <img src="/logoangkatan.png" class="h-14">
       </div>
@@ -193,7 +199,6 @@
 
     <section class="page" id="page2">
       <div class="flex justify-center gap-6 mb-6">
-        <!-- ASET LOKAL -->
         <img src="/logosekolah.png" class="h-20">
         <img src="/logoangkatan.png" class="h-16">
       </div>
@@ -215,19 +220,22 @@
     let isPlaying = false;
 
     function startInvitation() {
+      // 1. Mulai transisi fade out overlay
       document.getElementById('welcomeOverlay').style.opacity = '0';
+      
+      // 2. Set waktu musik ke reff (detik 54.5)
+      audio.currentTime = 54.5; 
+      audio.volume = 0.5;
+      
+      // 3. Mainkan musik
+      audio.play().catch(e => console.log("Autoplay dicegah browser"));
+      isPlaying = true;
+
+      // 4. Hapus overlay dari tampilan setelah transisi selesai (1.2s)
       setTimeout(() => {
         document.getElementById('welcomeOverlay').style.display = 'none';
         musicBtn.style.display = 'flex';
-      }, 500);
-      
-      audio.volume = 0.5;
-      
-      // LONCAT KE DETIK 15 (REFF)
-      audio.currentTime = 54.5; 
-      
-      audio.play().catch(e => console.log("Music play blocked"));
-      isPlaying = true;
+      }, 1200); 
     }
 
     function toggleMusic() {
@@ -242,6 +250,7 @@
       lucide.createIcons();
     }
 
+    // Ambil nama dari URL parameter ?student=Nama%20Siswa
     const urlParams = new URLSearchParams(window.location.search);
     const studentName = urlParams.get('student');
     if (studentName) {
@@ -254,6 +263,7 @@
       document.getElementById('page' + index).classList.add('active');
     }
 
+    // Inisialisasi ikon Lucide
     lucide.createIcons();
   </script>
 </body>
