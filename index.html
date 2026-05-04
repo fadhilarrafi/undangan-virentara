@@ -4,11 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Undangan Wisuda XXVII - SMA Plus PJ</title>
-  <link rel="icon" type="image/png" href="https://i.ibb.co.com/Z6Y5F29R/download.png">
-  <link rel="apple-touch-icon" href="https://i.ibb.co.com/Z6Y5F29R/download.png">
+  
+  <!-- ASET LOKAL: Favicon & Preload Gambar Berat -->
+  <link rel="icon" type="image/png" href="/logosekolah.png">
+  <link rel="apple-touch-icon" href="/logosekolah.png">
+  <link rel="preload" as="image" href="/batikborder.png">
+  
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  
   <style>
     :root { --gold-dark: #8C6D1F; --gold-light: #C5A347; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
@@ -115,15 +120,17 @@
 
   <div id="welcomeOverlay">
     <div class="flex gap-4 mb-6 justify-center items-center">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-24 w-auto">
-        <img src="https://i.ibb.co.com/JF0Ymr95/Untitled-210-x-133-mm.png" class="h-20 w-auto">
+        <!-- ASET LOKAL -->
+        <img src="/logosekolah.png" class="h-24 w-auto">
+        <img src="/logoangkatan.png" class="h-20 w-auto">
     </div>
     <h2 class="text-2xl font-bold mb-1" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
     <p class="text-base italic mb-10">SMA Plus Pembangunan Jaya</p>
     <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
 
-  <img src="https://i.ibb.co.com/3Y0Mzh2D/Untitled-design-15.png" class="batik-border">
+  <!-- ASET LOKAL: Batik Border -->
+  <img src="/batikborder.png" class="batik-border">
 
   <audio id="bgMusic" loop preload="auto">
     <source src="https://mp3tourl.com/audio/1777850598649-0fed3009-4ddd-4f8c-a5a5-974002f1934d.mp3" type="audio/mpeg">
@@ -132,8 +139,9 @@
   <main>
     <section class="page active" id="page0">
       <div class="flex justify-center items-center gap-5 mb-4">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-16">
-        <img src="https://i.ibb.co.com/JF0Ymr95/Untitled-210-x-133-mm.png" class="h-14">
+        <!-- ASET LOKAL -->
+        <img src="/logosekolah.png" class="h-16">
+        <img src="/logoangkatan.png" class="h-14">
       </div>
 
       <h1>Wisuda</h1>
@@ -160,7 +168,6 @@
         <p class="font-bold text-base text-[#1A365D]">MPH SMA Plus Pembangunan Jaya</p>
       </div>
 
-      <!-- WARNA DIGANTI KE NAVY DARK AGAR MATCH DENGAN TEKS LAIN -->
       <p class="font-bold text-[10px] text-[#0A1D37] tracking-[0.2em] mb-6 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
       
       <button class="btn-gold" onclick="goToPage(1)">
@@ -186,8 +193,9 @@
 
     <section class="page" id="page2">
       <div class="flex justify-center gap-6 mb-6">
-        <img src="https://i.ibb.co.com/Z6Y5F29R/download.png" class="h-20">
-        <img src="https://i.ibb.co.com/JF0Ymr95/Untitled-210-x-133-mm.png" class="h-16">
+        <!-- ASET LOKAL -->
+        <img src="/logosekolah.png" class="h-20">
+        <img src="/logoangkatan.png" class="h-16">
       </div>
       <p class="italic text-lg">Sampai jumpa di acara</p>
       <h2 style="font-family:'Playfair Display'; font-size: 56px; font-weight: 900; color: #C5A347; margin-bottom: 10px;">Wisuda</h2>
