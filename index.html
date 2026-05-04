@@ -220,7 +220,12 @@
         document.getElementById('welcomeOverlay').style.display = 'none';
         musicBtn.style.display = 'flex';
       }, 500);
+      
       audio.volume = 0.5;
+      
+      // LONCAT KE DETIK 15 (REFF)
+      audio.currentTime = 55; 
+      
       audio.play().catch(e => console.log("Music play blocked"));
       isPlaying = true;
     }
