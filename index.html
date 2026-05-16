@@ -12,18 +12,22 @@
   
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     :root { --gold-dark: #8C6D1F; --gold-light: #C5A347; --navy-dark: #0A1D37; --bg: #FAF6ED; }
-    body, html { height: 100%; margin: 0; background-color: var(--bg); font-family: 'Lora', serif; color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; }
+    
+    /* Menggunakan Helvetica / Arial Sans-Serif sesuai request klien */
+    body, html { 
+      height: 100%; margin: 0; background-color: var(--bg); 
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+      color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; 
+    }
     
     .batik-border { 
         position: fixed; top: 0; left: 0; width: 130px; height: 100%; z-index: 40; 
         pointer-events: none; object-fit: cover; opacity: 0.95; 
     }
 
-    /* Overlay transisi diperlambat menjadi 1.2s */
     #welcomeOverlay { 
         position: fixed; inset: 0; background: var(--bg); z-index: 100; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -38,7 +42,6 @@
         text-align: center; box-sizing: border-box;
     }
     
-    /* Animasi konten masuk diperlambat menjadi 1.5s dengan efek cinematic */
     .page.active { 
         display: flex; 
         animation: simpleFade 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
@@ -51,17 +54,16 @@
 
     .schedule-container {
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
         display: flex; flex-direction: column; gap: 8px; margin: 5px 0;
     }
     .schedule-item { text-align: center; }
     .schedule-time {
-        font-family: 'Cormorant Garamond', serif;
-        color: var(--gold-dark); font-weight: 700; font-size: 17px;
+        color: var(--gold-dark); font-weight: 700; font-size: 15px;
         display: inline-block; background: rgba(197, 163, 71, 0.08);
-        padding: 1px 10px; border-radius: 20px; margin-bottom: 2px;
+        padding: 2px 12px; border-radius: 20px; margin-bottom: 2px;
     }
-    .schedule-event { font-family: 'Lora', serif; font-weight: 700; font-size: 15px; color: var(--navy-dark); display: block; }
+    .schedule-event { font-weight: 700; font-size: 14px; color: var(--navy-dark); display: block; }
     .schedule-divider { width: 25px; height: 1px; background: rgba(197, 163, 71, 0.2); margin: 6px auto 0; }
 
     .btn-gold { 
@@ -70,8 +72,7 @@
         color: var(--gold-dark); 
         border: 1px solid rgba(140, 109, 31, 0.3);
         border-radius: 12px;
-        font-family: 'Cormorant Garamond', serif; 
-        font-size: 15px; 
+        font-size: 14px; 
         font-weight: 700; 
         cursor: pointer; 
         text-transform: uppercase; 
@@ -93,7 +94,6 @@
         border: 1px solid rgba(140, 109, 31, 0.2);
         padding: 10px 24px;
         border-radius: 10px;
-        font-family: 'Cormorant Garamond', serif;
         font-size: 13px;
         font-weight: 600;
         text-transform: uppercase;
@@ -114,11 +114,10 @@
 
     .card-info { 
         background: rgba(234, 230, 218, 0.5); border: 1.5px solid #D1C7B1; 
-        border-radius: 14px; padding: 16px 12px; width: 100%; max-width: 310px; margin: 15px 0; 
+        border-radius: 14px; padding: 14px 12px; width: 100%; max-width: 310px; margin: 12px 0; 
     }
     
-    h1 { font-family: 'Playfair Display', serif; font-size: 52px !important; color: #C5A347; font-weight: 900; margin: 4px 0 !important; line-height: 1; }
-    .text-serif { font-family: 'Cormorant Garamond', serif; }
+    h1 { font-size: 46px !important; color: #C5A347; font-weight: 900; margin: 4px 0 !important; line-height: 1; text-transform: uppercase; letter-spacing: 1px; }
   </style>
 </head>
 <body>
@@ -128,12 +127,13 @@
   </button>
 
   <div id="welcomeOverlay">
-    <div class="flex gap-4 mb-6 justify-center items-center">
-        <img src="/logosekolah.png" class="h-24 w-auto">
-        <img src="/logoangkatan.png" class="h-20 w-auto">
+    <div class="flex flex-col gap-4 mb-6 justify-center items-center">
+        <!-- Logo sekolah tulisan ke samping (horizontal) -->
+        <img src="/logosekolah.png" class="h-14 w-auto object-contain">
+        <img src="/logoangkatan.png" class="h-20 w-auto object-contain">
     </div>
-    <h2 class="text-2xl font-bold mb-1" style="font-family:'Playfair Display'">Undangan Wisuda XXVII</h2>
-    <p class="text-base italic mb-10">SMA Plus Pembangunan Jaya</p>
+    <h2 class="text-2xl font-bold tracking-wide mb-1 uppercase text-[#0A1D37]">Undangan Wisuda XXVII</h2>
+    <p class="text-sm tracking-wider uppercase opacity-80 mb-10">SMA Plus Pembangunan Jaya</p>
     <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
 
@@ -145,36 +145,42 @@
 
   <main>
     <section class="page active" id="page0">
-      <div class="flex justify-center items-center gap-5 mb-4">
-        <img src="/logosekolah.png" class="h-16">
-        <img src="/logoangkatan.png" class="h-14">
+      <div class="flex flex-col justify-center items-center gap-3 mb-4">
+        <!-- Logo sekolah tulisan ke samping (horizontal) -->
+        <img src="/logosekolah.png" class="h-10 object-contain">
+        <img src="/logoangkatan.png" class="h-14 object-contain">
       </div>
 
       <h1>Wisuda</h1>
       
-      <div class="text-serif text-base leading-tight font-semibold mb-4">
+      <div class="text-sm tracking-wide leading-normal font-semibold mb-4 text-[#0A1D37]">
         <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
+        <p>Angkatan XXVII Virentara</p>
+        <p>Tahun Ajaran 2025-2026</p>
       </div>
 
-      <div class="mb-3">
-        <p class="text-base font-bold text-[#1A365D]">Yth. Bapak/Ibu Orang Tua</p>
-        <p id="studentName" class="text-xl font-bold text-[#1A365D] mt-1">[Nama Siswa]</p>
+      <div class="mb-2">
+        <p class="text-sm font-bold text-[#1A365D] uppercase tracking-wide">Yth. Bapak/Ibu Orang Tua</p>
+        <p id="studentName" class="text-lg font-bold text-[#1A365D] mt-0.5">[Nama Siswa]</p>
       </div>
 
-      <p class="italic text-xs text-[#1A365D] mb-1">Dengan ini kami mengundang Bapak/Ibu pada:</p>
+      <p class="text-[11px] tracking-wide text-[#1A365D] mb-1">Dengan ini kami mengundang Bapak/Ibu pada:</p>
 
       <div class="card-info">
-        <p class="font-bold text-xl text-[#1A365D]">Sabtu, 23 Mei 2026</p>
-        <p class="font-bold text-lg text-[#C5A347] my-1">07.30 – 11.55 WIB</p>
-        <p class="text-xs font-semibold text-[#1A365D]">Siswa hadir pukul 07.00 WIB</p>
-        <div class="w-20 h-[1.5px] bg-[#C5A347] mx-auto my-3"></div>
-        <p class="text-xs uppercase font-bold text-[#1A365D] opacity-70 tracking-widest">Lokasi</p>
-        <p class="font-bold text-base text-[#1A365D]">MPH SMA Plus Pembangunan Jaya</p>
+        <p class="font-bold text-lg text-[#1A365D]">Sabtu, 23 Mei 2026</p>
+        <p class="font-bold text-base text-[#C5A347] my-0.5">07.30 – 12.15 WIB</p>
+        <p class="text-xs font-bold text-[#D32F2F]">Siswa hadir pukul 06.30 WIB</p>
+        
+        <div class="w-20 h-[1px] bg-[#C5A347] mx-auto my-2.5"></div>
+        
+        <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Lokasi</p>
+        <p class="font-bold text-sm text-[#1A365D] mb-2">MPH SMA Plus Pembangunan Jaya</p>
+        
+        <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Dresscode Orang Tua</p>
+        <p class="font-bold text-sm text-[#8C6D1F]">Pakaian Batik</p>
       </div>
 
-      <p class="font-bold text-[10px] text-[#0A1D37] tracking-[0.2em] mb-6 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
+      <p class="font-bold text-[9px] text-[#0A1D37] tracking-[0.2em] mb-5 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
       
       <button class="btn-gold" onclick="goToPage(1)">
         Susunan Acara <i data-lucide="chevron-right" class="ml-2 w-4 h-4"></i>
@@ -182,14 +188,14 @@
     </section>
 
     <section class="page" id="page1">
-      <h2 class="mb-4" style="font-family:'Playfair Display'; font-size: 28px; font-weight: 900; color:#C5A347;">Susunan Acara</h2>
+      <h2 class="mb-4 text-xl font-bold tracking-wider text-[#C5A347] uppercase">Susunan Acara</h2>
       <div class="schedule-container">
         <div class="schedule-item"><span class="schedule-time">07.30 – 08.00</span><span class="schedule-event">Pembukaan</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">08.00 – 08.10</span><span class="schedule-event">Pembacaan Doa</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">08.10 – 08.30</span><span class="schedule-event">Sambutan-Sambutan</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">08.30 – 09.00</span><span class="schedule-event">Pengumuman Prestasi</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">09.00 – 11.00</span><span class="schedule-event">Prosesi Wisuda</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">11.50 – 11.55</span><span class="schedule-event">Penutup</span></div>
+        <div class="schedule-item"><span class="schedule-time">08.00 – 08.10</span><span class="schedule-event">Doa</span><div class="schedule-divider"></div></div>
+        <div class="schedule-item"><span class="schedule-time">08.10 – 08.50</span><span class="schedule-event">Sambutan</span><div class="schedule-divider"></div></div>
+        <div class="schedule-item"><span class="schedule-time">08.50 – 09.30</span><span class="schedule-event">Pengumuman Prestasi</span><div class="schedule-divider"></div></div>
+        <div class="schedule-item"><span class="schedule-time">09.30 – 11.25</span><span class="schedule-event">Prosesi Wisuda</span><div class="schedule-divider"></div></div>
+        <div class="schedule-item"><span class="schedule-time">11.25 – 12.15</span><span class="schedule-event">Penutup</span></div>
       </div>
       <div class="flex gap-3 mt-6">
         <button class="btn-outline" onclick="goToPage(0)">Kembali</button>
@@ -198,16 +204,16 @@
     </section>
 
     <section class="page" id="page2">
-      <div class="flex justify-center gap-6 mb-6">
-        <img src="/logosekolah.png" class="h-20">
-        <img src="/logoangkatan.png" class="h-16">
+      <div class="flex flex-col justify-center items-center gap-4 mb-6">
+        <img src="/logosekolah.png" class="h-12 object-contain">
+        <img src="/logoangkatan.png" class="h-16 object-contain">
       </div>
-      <p class="italic text-lg">Sampai jumpa di acara</p>
-      <h2 style="font-family:'Playfair Display'; font-size: 56px; font-weight: 900; color: #C5A347; margin-bottom: 10px;">Wisuda</h2>
-      <div class="text-serif text-base font-semibold leading-relaxed">
+      <p class="tracking-wide text-base font-medium">Sampai jumpa di acara</p>
+      <h2 class="text-4xl font-black text-[#C5A347] tracking-wider uppercase my-2">Wisuda</h2>
+      <div class="text-sm font-semibold tracking-wide leading-relaxed text-[#0A1D37]">
         <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII (Virentara)</p>
-        <p>Tahun Ajaran 2025/2026</p>
+        <p>Angkatan XXVII Virentara</p>
+        <p>Tahun Ajaran 2025-2026</p>
       </div>
       <button class="btn-gold mt-10" onclick="goToPage(0)">Kembali Ke Awal</button>
     </section>
@@ -220,18 +226,14 @@
     let isPlaying = false;
 
     function startInvitation() {
-      // 1. Mulai transisi fade out overlay
       document.getElementById('welcomeOverlay').style.opacity = '0';
       
-      // 2. Set waktu musik ke reff (detik 54.5)
       audio.currentTime = 54.5; 
       audio.volume = 0.5;
       
-      // 3. Mainkan musik
       audio.play().catch(e => console.log("Autoplay dicegah browser"));
       isPlaying = true;
 
-      // 4. Hapus overlay dari tampilan setelah transisi selesai (1.2s)
       setTimeout(() => {
         document.getElementById('welcomeOverlay').style.display = 'none';
         musicBtn.style.display = 'flex';
@@ -250,7 +252,6 @@
       lucide.createIcons();
     }
 
-    // Ambil nama dari URL parameter ?student=Nama%20Siswa
     const urlParams = new URLSearchParams(window.location.search);
     const studentName = urlParams.get('student');
     if (studentName) {
@@ -263,7 +264,6 @@
       document.getElementById('page' + index).classList.add('active');
     }
 
-    // Inisialisasi ikon Lucide
     lucide.createIcons();
   </script>
 </body>
