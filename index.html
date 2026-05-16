@@ -16,7 +16,7 @@
   <style>
     :root { --gold-dark: #8C6D1F; --gold-light: #C5A347; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     
-    /* Menggunakan Helvetica / Arial Sans-Serif sesuai request klien */
+    /* Memastikan SELURUH halaman menggunakan Helvetica / Sans-Serif */
     body, html { 
       height: 100%; margin: 0; background-color: var(--bg); 
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
@@ -32,6 +32,7 @@
         position: fixed; inset: 0; background: var(--bg); z-index: 100; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
         text-align: center; padding: 20px; transition: opacity 1.2s ease; 
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
     main { display: flex; flex-direction: column; height: 100%; width: 100%; position: relative; z-index: 10; }
@@ -126,6 +127,7 @@
     <i data-lucide="music" id="musicIcon" class="w-6 h-6"></i>
   </button>
 
+  <!-- PAGE 0A: WELCOME OVERLAY (HALAMAN PEMBUKA) -->
   <div id="welcomeOverlay">
     <div class="flex flex-col gap-4 mb-6 justify-center items-center">
         <!-- Logo sekolah tulisan ke samping (horizontal) -->
@@ -133,7 +135,13 @@
         <img src="/logoangkatan.png" class="h-20 w-auto object-contain">
     </div>
     <h2 class="text-2xl font-bold tracking-wide mb-1 uppercase text-[#0A1D37]">Undangan Wisuda XXVII</h2>
-    <p class="text-sm tracking-wider uppercase opacity-80 mb-10">SMA Plus Pembangunan Jaya</p>
+    <p class="text-sm tracking-wider uppercase opacity-80 mb-4">SMA Plus Pembangunan Jaya</p>
+    
+    <!-- Informasi Dresscode Ditambahkan di Halaman Paling Awal -->
+    <div class="mb-10 bg-[rgba(197,163,71,0.08)] px-4 py-2 rounded-full border border-[rgba(140,109,31,0.2)]">
+      <p class="text-xs font-bold text-[#8C6D1F] tracking-wide uppercase">Dresscode Orang Tua: Pakaian Batik</p>
+    </div>
+
     <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
 
@@ -144,6 +152,7 @@
   </audio>
 
   <main>
+    <!-- PAGE 1: KARTU UTAMA -->
     <section class="page active" id="page0">
       <div class="flex flex-col justify-center items-center gap-3 mb-4">
         <!-- Logo sekolah tulisan ke samping (horizontal) -->
@@ -187,6 +196,7 @@
       </button>
     </section>
 
+    <!-- PAGE 2: SUSUNAN ACARA -->
     <section class="page" id="page1">
       <h2 class="mb-4 text-xl font-bold tracking-wider text-[#C5A347] uppercase">Susunan Acara</h2>
       <div class="schedule-container">
@@ -203,6 +213,7 @@
       </div>
     </section>
 
+    <!-- PAGE 3: PENUTUP -->
     <section class="page" id="page2">
       <div class="flex flex-col justify-center items-center gap-4 mb-6">
         <img src="/logosekolah.png" class="h-12 object-contain">
