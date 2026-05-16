@@ -81,6 +81,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
     }
 
     .btn-gold:hover {
@@ -99,6 +100,7 @@
         text-transform: uppercase;
         letter-spacing: 2px;
         transition: all 0.3s ease;
+        flex-shrink: 0;
     }
 
     #musicToggle { 
@@ -110,11 +112,13 @@
         opacity: 0.6;
         cursor: pointer;
         padding: 0;
+        width: 24px; height: 24px;
     }
 
     .card-info { 
         background: rgba(234, 230, 218, 0.5); border: 1.5px solid #D1C7B1; 
         border-radius: 14px; padding: 14px 12px; width: 100%; max-width: 310px; margin: 12px 0; 
+        flex-shrink: 0;
     }
     
     .text-wisuda { 
@@ -133,13 +137,13 @@
   <img src="/batikborder.png" class="batik-border">
 
   <button id="musicToggle" onclick="toggleMusic()">
-    <i data-lucide="music" id="musicIcon" class="w-6 h-6"></i>
+    <i data-lucide="music" id="musicIcon" class="w-6 h-6 block"></i>
   </button>
 
   <div id="welcomeOverlay">
     <div class="flex gap-4 mb-6 justify-center items-center w-full max-w-sm">
-        <img src="/logosekolah.png" class="h-10 w-auto object-contain">
-        <img src="/logoangkatan.png" class="h-14 w-auto object-contain">
+        <img src="/logosekolah.png" class="h-10 w-auto object-contain flex-shrink-0">
+        <img src="/logoangkatan.png" class="h-14 w-auto object-contain flex-shrink-0">
     </div>
     <h2 class="text-2xl font-bold tracking-wide mb-1 uppercase text-[#0A1D37]">Undangan Wisuda XXVII</h2>
     <p class="text-sm tracking-wider uppercase opacity-80 mb-10">SMA Plus Pembangunan Jaya</p>
@@ -154,8 +158,8 @@
   <main>
     <section class="page active" id="page0">
       <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm">
-        <img src="/logosekolah.png" class="h-9 object-contain">
-        <img src="/logoangkatan.png" class="h-12 object-contain">
+        <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
+        <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
       </div>
 
       <div class="text-wisuda">Wisuda</div>
@@ -189,10 +193,10 @@
 
       <p class="font-bold text-[9px] text-[#0A1D37] tracking-[0.2em] mb-1 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
       
-      <p class="font-bold text-[9px] text-[#0A1D37] tracking-[0.2em] mb-5 opacity-80 uppercase">✦ MOHON HADIR 15 MENIT SEBELUM ACARA DIMULAI ✦</p>
+      <p class="font-bold text-[8.5px] text-[#0A1D37] tracking-[0.15em] mb-5 opacity-80 uppercase white-space-nowrap">✦ MOHON HADIR 15 MENIT SEBELUM ACARA ✦</p>
       
       <button class="btn-gold" onclick="goToPage(1)">
-        Susunan Acara <i data-lucide="chevron-right" class="ml-2 w-4 h-4"></i>
+        Susunan Acara <i data-lucide="chevron-right" class="ml-2 w-4 h-4 flex-shrink-0"></i>
       </button>
     </section>
 
@@ -214,8 +218,8 @@
 
     <section class="page" id="page2">
       <div class="flex justify-center items-center gap-4 mb-6 w-full max-w-sm">
-        <img src="/logosekolah.png" class="h-10 object-contain">
-        <img src="/logoangkatan.png" class="h-14 object-contain">
+        <img src="/logosekolah.png" class="h-10 w-auto object-contain flex-shrink-0">
+        <img src="/logoangkatan.png" class="h-14 w-auto object-contain flex-shrink-0">
       </div>
       <p class="tracking-wide text-base font-medium">Sampai jumpa di acara</p>
       
