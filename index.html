@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Undangan Wisuda XXVII - SMA Plus PJ</title>
   
-  <!-- ASET LOKAL: Favicon & Preload Gambar Berat -->
-  <link rel="icon" type="image/png" href="/logosekolah.png">
+  <link class="revisi-wisuda" rel="icon" type="image/png" href="/logosekolah.png">
   <link rel="apple-touch-icon" href="/logosekolah.png">
   <link rel="preload" as="image" href="/batikborder.png">
   
@@ -22,13 +21,11 @@
       color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; 
     }
     
-    /* Batik border dinaikkan z-index-nya agar muncul di halaman pembuka juga */
     .batik-border { 
         position: fixed; top: 0; left: 0; width: 130px; height: 100%; z-index: 110; 
         pointer-events: none; object-fit: cover; opacity: 0.95; 
     }
 
-    /* Padding kiri ditambahkan agar konten welcome text bergeser menghindari batik border */
     #welcomeOverlay { 
         position: fixed; inset: 0; background: var(--bg); z-index: 100; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
@@ -105,7 +102,7 @@
     }
 
     #musicToggle { 
-        position: fixed; top: 20px; right: 20px; z-index: 120; /* Naik z-index agar di atas batik */
+        position: fixed; top: 20px; right: 20px; z-index: 120; 
         background: none; 
         border: none; 
         display: none; align-items: center; justify-content: center; 
@@ -120,21 +117,27 @@
         border-radius: 14px; padding: 14px 12px; width: 100%; max-width: 310px; margin: 12px 0; 
     }
     
-    h1 { font-size: 46px !important; color: #C5A347; font-weight: 900; margin: 4px 0 !important; line-height: 1; text-transform: uppercase; letter-spacing: 1px; }
+    /* Standardisasi Class untuk text Wisuda agar seragam di semua page */
+    .text-wisuda { 
+        font-size: 46px; 
+        color: #C5A347; 
+        font-weight: 900; 
+        margin: 6px 0; 
+        line-height: 1; 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Gambar Border Batik Dipasang Global (Muncul di Awal & Semua Page) -->
   <img src="/batikborder.png" class="batik-border">
 
   <button id="musicToggle" onclick="toggleMusic()">
     <i data-lucide="music" id="musicIcon" class="w-6 h-6"></i>
   </button>
 
-  <!-- PAGE 0A: WELCOME OVERLAY (HALAMAN PEMBUKA) -->
   <div id="welcomeOverlay">
-    <!-- Logo Dibuat Side-to-Side (Berdampingan) -->
     <div class="flex gap-4 mb-6 justify-center items-center w-full max-w-sm">
         <img src="/logosekolah.png" class="h-10 w-auto object-contain">
         <img src="/logoangkatan.png" class="h-14 w-auto object-contain">
@@ -150,15 +153,13 @@
   </audio>
 
   <main>
-    <!-- PAGE 1: KARTU UTAMA -->
     <section class="page active" id="page0">
-      <!-- Logo Dibuat Side-to-Side (Berdampingan) -->
       <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm">
         <img src="/logosekolah.png" class="h-9 object-contain">
         <img src="/logoangkatan.png" class="h-12 object-contain">
       </div>
 
-      <h1>Wisuda</h1>
+      <div class="text-wisuda">Wisuda</div>
       
       <div class="text-sm tracking-wide leading-normal font-semibold mb-4 text-[#0A1D37]">
         <p>SMA Plus Pembangunan Jaya</p>
@@ -183,7 +184,6 @@
         <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Lokasi</p>
         <p class="font-bold text-sm text-[#1A365D] mb-2">MPH SMA Plus Pembangunan Jaya</p>
         
-        <!-- Dresscode diganti teksnya & diubah warnanya menjadi biru tua -->
         <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Dresscode</p>
         <p class="font-bold text-sm text-[#1A365D]">Pakaian Batik</p>
       </div>
@@ -195,7 +195,6 @@
       </button>
     </section>
 
-    <!-- PAGE 2: SUSUNAN ACARA -->
     <section class="page" id="page1">
       <h2 class="mb-4 text-xl font-bold tracking-wider text-[#C5A347] uppercase">Susunan Acara</h2>
       <div class="schedule-container">
@@ -212,16 +211,16 @@
       </div>
     </section>
 
-    <!-- PAGE 3: PENUTUP -->
     <section class="page" id="page2">
-      <!-- Logo Dibuat Side-to-Side (Berdampingan) -->
       <div class="flex justify-center items-center gap-4 mb-6 w-full max-w-sm">
         <img src="/logosekolah.png" class="h-10 object-contain">
         <img src="/logoangkatan.png" class="h-14 object-contain">
       </div>
       <p class="tracking-wide text-base font-medium">Sampai jumpa di acara</p>
-      <h2 class="text-4xl font-black text-[#C5A347] tracking-wider uppercase my-2">Wisuda</h2>
-      <div class="text-sm font-semibold tracking-wide leading-relaxed text-[#0A1D37]">
+      
+      <div class="text-wisuda">Wisuda</div>
+      
+      <div class="text-sm font-semibold tracking-wide leading-relaxed text-[#0A1D37] mt-2">
         <p>SMA Plus Pembangunan Jaya</p>
         <p>Angkatan XXVII Virentara</p>
         <p>Tahun Ajaran 2025-2026</p>
