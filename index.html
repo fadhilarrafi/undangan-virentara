@@ -16,23 +16,25 @@
   <style>
     :root { --gold-dark: #8C6D1F; --gold-light: #C5A347; --navy-dark: #0A1D37; --bg: #FAF6ED; }
     
-    /* Memastikan SELURUH halaman menggunakan Helvetica / Sans-Serif */
     body, html { 
       height: 100%; margin: 0; background-color: var(--bg); 
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
       color: var(--navy-dark); overflow: hidden; position: fixed; width: 100%; 
     }
     
+    /* Batik border dinaikkan z-index-nya agar muncul di halaman pembuka juga */
     .batik-border { 
-        position: fixed; top: 0; left: 0; width: 130px; height: 100%; z-index: 40; 
+        position: fixed; top: 0; left: 0; width: 130px; height: 100%; z-index: 110; 
         pointer-events: none; object-fit: cover; opacity: 0.95; 
     }
 
+    /* Padding kiri ditambahkan agar konten welcome text bergeser menghindari batik border */
     #welcomeOverlay { 
         position: fixed; inset: 0; background: var(--bg); z-index: 100; 
         display: flex; flex-direction: column; align-items: center; justify-content: center; 
-        text-align: center; padding: 20px; transition: opacity 1.2s ease; 
+        text-align: center; padding: 20px 40px 20px 95px; transition: opacity 1.2s ease; 
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
     }
 
     main { display: flex; flex-direction: column; height: 100%; width: 100%; position: relative; z-index: 10; }
@@ -103,7 +105,7 @@
     }
 
     #musicToggle { 
-        position: fixed; top: 20px; right: 20px; z-index: 50; 
+        position: fixed; top: 20px; right: 20px; z-index: 120; /* Naik z-index agar di atas batik */
         background: none; 
         border: none; 
         display: none; align-items: center; justify-content: center; 
@@ -123,29 +125,25 @@
 </head>
 <body>
 
+  <!-- Gambar Border Batik Dipasang Global (Muncul di Awal & Semua Page) -->
+  <img src="/batikborder.png" class="batik-border">
+
   <button id="musicToggle" onclick="toggleMusic()">
     <i data-lucide="music" id="musicIcon" class="w-6 h-6"></i>
   </button>
 
   <!-- PAGE 0A: WELCOME OVERLAY (HALAMAN PEMBUKA) -->
   <div id="welcomeOverlay">
-    <div class="flex flex-col gap-4 mb-6 justify-center items-center">
-        <!-- Logo sekolah tulisan ke samping (horizontal) -->
-        <img src="/logosekolah.png" class="h-14 w-auto object-contain">
-        <img src="/logoangkatan.png" class="h-20 w-auto object-contain">
+    <!-- Logo Dibuat Side-to-Side (Berdampingan) -->
+    <div class="flex gap-4 mb-6 justify-center items-center w-full max-w-sm">
+        <img src="/logosekolah.png" class="h-10 w-auto object-contain">
+        <img src="/logoangkatan.png" class="h-14 w-auto object-contain">
     </div>
     <h2 class="text-2xl font-bold tracking-wide mb-1 uppercase text-[#0A1D37]">Undangan Wisuda XXVII</h2>
-    <p class="text-sm tracking-wider uppercase opacity-80 mb-4">SMA Plus Pembangunan Jaya</p>
+    <p class="text-sm tracking-wider uppercase opacity-80 mb-10">SMA Plus Pembangunan Jaya</p>
     
-    <!-- Informasi Dresscode Ditambahkan di Halaman Paling Awal -->
-    <div class="mb-10 bg-[rgba(197,163,71,0.08)] px-4 py-2 rounded-full border border-[rgba(140,109,31,0.2)]">
-      <p class="text-xs font-bold text-[#8C6D1F] tracking-wide uppercase">Dresscode Orang Tua: Pakaian Batik</p>
-    </div>
-
     <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
   </div>
-
-  <img src="/batikborder.png" class="batik-border">
 
   <audio id="bgMusic" loop preload="auto">
     <source src="https://mp3tourl.com/audio/1777850598649-0fed3009-4ddd-4f8c-a5a5-974002f1934d.mp3" type="audio/mpeg">
@@ -154,10 +152,10 @@
   <main>
     <!-- PAGE 1: KARTU UTAMA -->
     <section class="page active" id="page0">
-      <div class="flex flex-col justify-center items-center gap-3 mb-4">
-        <!-- Logo sekolah tulisan ke samping (horizontal) -->
-        <img src="/logosekolah.png" class="h-10 object-contain">
-        <img src="/logoangkatan.png" class="h-14 object-contain">
+      <!-- Logo Dibuat Side-to-Side (Berdampingan) -->
+      <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm">
+        <img src="/logosekolah.png" class="h-9 object-contain">
+        <img src="/logoangkatan.png" class="h-12 object-contain">
       </div>
 
       <h1>Wisuda</h1>
@@ -185,8 +183,9 @@
         <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Lokasi</p>
         <p class="font-bold text-sm text-[#1A365D] mb-2">MPH SMA Plus Pembangunan Jaya</p>
         
-        <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Dresscode Orang Tua</p>
-        <p class="font-bold text-sm text-[#8C6D1F]">Pakaian Batik</p>
+        <!-- Dresscode diganti teksnya & diubah warnanya menjadi biru tua -->
+        <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Dresscode</p>
+        <p class="font-bold text-sm text-[#1A365D]">Pakaian Batik</p>
       </div>
 
       <p class="font-bold text-[9px] text-[#0A1D37] tracking-[0.2em] mb-5 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
@@ -215,9 +214,10 @@
 
     <!-- PAGE 3: PENUTUP -->
     <section class="page" id="page2">
-      <div class="flex flex-col justify-center items-center gap-4 mb-6">
-        <img src="/logosekolah.png" class="h-12 object-contain">
-        <img src="/logoangkatan.png" class="h-16 object-contain">
+      <!-- Logo Dibuat Side-to-Side (Berdampingan) -->
+      <div class="flex justify-center items-center gap-4 mb-6 w-full max-w-sm">
+        <img src="/logosekolah.png" class="h-10 object-contain">
+        <img src="/logoangkatan.png" class="h-14 object-contain">
       </div>
       <p class="tracking-wide text-base font-medium">Sampai jumpa di acara</p>
       <h2 class="text-4xl font-black text-[#C5A347] tracking-wider uppercase my-2">Wisuda</h2>
