@@ -26,21 +26,21 @@
         pointer-events: none; object-fit: cover; opacity: 0.95; 
     }
 
+    /* PERUBAHAN: Mengubah susunan overlay agar logo presisi di atas seperti halaman utama */
     #welcomeOverlay { 
         position: fixed; inset: 0; background: var(--bg); z-index: 100; 
-        display: flex; flex-direction: column; align-items: center; justify-content: center; 
-        text-align: center; padding: 20px 40px 20px 95px; transition: opacity 1.2s ease; 
+        display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
+        text-align: center; padding: 40px 40px 40px 95px; transition: opacity 1.2s ease; 
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         box-sizing: border-box;
     }
 
     main { display: flex; flex-direction: column; height: 100%; width: 100%; position: relative; z-index: 10; }
 
-    /* PERUBAHAN: Mengubah justify-content ke flex-start dan memberi padding atas agar logo konsisten di atas */
     .page { 
         display: none; flex-direction: column; align-items: center; justify-content: flex-start; 
         height: 100%; width: 100%; padding: 40px 40px 40px 95px;
-        text-align: center; box-sizing: border-box; overflow-y: auto;
+        text-align: center; box-sizing: border-box;
     }
     
     .page.active { 
@@ -53,7 +53,7 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* KELAS BARU: Pembungkus konten utama agar fleksibel dan mendorong tombol ke bawah jika layar luas */
+    /* Pembungkus konten utama agar posisi teks selalu seimbang di tengah */
     .content-wrapper {
         display: flex;
         flex-direction: column;
@@ -61,7 +61,7 @@
         justify-content: center;
         flex-grow: 1;
         width: 100%;
-        margin: auto 0; /* Menjaga konten tengah tetap seimbang di antara logo dan tombol */
+        margin: auto 0;
     }
 
     .schedule-container {
@@ -152,15 +152,22 @@
     <i data-lucide="music" id="musicIcon" class="w-6 h-6 block"></i>
   </button>
 
+  <!-- COVER UNDANGAN (WELCOME OVERLAY) -->
   <div id="welcomeOverlay">
-    <div class="flex gap-4 mb-6 justify-center items-center w-full max-w-sm">
-        <img src="/logosekolah.png" class="h-10 w-auto object-contain flex-shrink-0">
-        <img src="/logoangkatan.png" class="h-14 w-auto object-contain flex-shrink-0">
+    <!-- Logo bagian atas cover, disamakan ukurannya dengan halaman dalam agar konsisten -->
+    <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm flex-shrink-0">
+        <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
+        <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
     </div>
-    <h2 class="text-2xl font-bold tracking-wide mb-1 uppercase text-[#0A1D37]">Undangan Wisuda XXVII</h2>
-    <p class="text-sm tracking-wider uppercase opacity-80 mb-10">SMA Plus Pembangunan Jaya</p>
     
-    <button onclick="startInvitation()" class="btn-gold">Buka Undangan</button>
+    <!-- Konten tengah cover -->
+    <div class="content-wrapper">
+      <h2 class="text-2xl font-bold tracking-wide mb-1 uppercase text-[#0A1D37]">Undangan Wisuda XXVII</h2>
+      <p class="text-sm tracking-wider uppercase opacity-80">SMA Plus Pembangunan Jaya</p>
+    </div>
+    
+    <!-- Tombol bawah cover -->
+    <button onclick="startInvitation()" class="btn-gold mt-auto">Buka Undangan</button>
   </div>
 
   <audio id="bgMusic" loop preload="auto">
@@ -168,15 +175,13 @@
   </audio>
 
   <main>
-    <!-- PAGE 0 -->
+    <!-- PAGE 0 (ISI UNDANGAN) -->
     <section class="page active" id="page0">
-      <!-- Logo tetap di paling atas halaman -->
       <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm flex-shrink-0">
         <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
         <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
       </div>
 
-      <!-- Konten dibungkus agar posisinya proporsional -->
       <div class="content-wrapper">
         <div class="text-wisuda">Wisuda</div>
         
@@ -216,7 +221,7 @@
       </button>
     </section>
 
-    <!-- PAGE 1 (Ditambahkan Logo di bagian Atas) -->
+    <!-- PAGE 1 (SUSUNAN ACARA) -->
     <section class="page" id="page1">
       <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm flex-shrink-0">
         <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
@@ -241,9 +246,9 @@
       </div>
     </section>
 
-    <!-- PAGE 2 -->
+    <!-- PAGE 2 (PENUTUP) -->
     <section class="page" id="page2">
-      <div class="flex justify-center items-center gap-4 mb-6 w-full max-w-sm flex-shrink-0">
+      <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm flex-shrink-0">
         <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
         <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
       </div>
