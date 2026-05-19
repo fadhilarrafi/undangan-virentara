@@ -36,10 +36,11 @@
 
     main { display: flex; flex-direction: column; height: 100%; width: 100%; position: relative; z-index: 10; }
 
+    /* PERUBAHAN: Mengubah justify-content ke flex-start dan memberi padding atas agar logo konsisten di atas */
     .page { 
-        display: none; flex-direction: column; align-items: center; justify-content: center; 
-        height: 100%; width: 100%; padding-left: 95px; padding-right: 40px;
-        text-align: center; box-sizing: border-box;
+        display: none; flex-direction: column; align-items: center; justify-content: flex-start; 
+        height: 100%; width: 100%; padding: 40px 40px 40px 95px;
+        text-align: center; box-sizing: border-box; overflow-y: auto;
     }
     
     .page.active { 
@@ -50,6 +51,17 @@
     @keyframes simpleFade {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KELAS BARU: Pembungkus konten utama agar fleksibel dan mendorong tombol ke bawah jika layar luas */
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        width: 100%;
+        margin: auto 0; /* Menjaga konten tengah tetap seimbang di antara logo dan tombol */
     }
 
     .schedule-container {
@@ -156,81 +168,98 @@
   </audio>
 
   <main>
+    <!-- PAGE 0 -->
     <section class="page active" id="page0">
-      <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm">
+      <!-- Logo tetap di paling atas halaman -->
+      <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm flex-shrink-0">
         <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
         <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
       </div>
 
-      <div class="text-wisuda">Wisuda</div>
-      
-      <div class="text-sm tracking-wide leading-normal font-semibold mb-4 text-[#0A1D37]">
-        <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII Virentara</p>
-        <p>Tahun Ajaran 2025-2026</p>
-      </div>
-
-      <div class="mb-2">
-        <p class="text-sm font-bold text-[#1A365D] uppercase tracking-wide">Yth. Bapak/Ibu Orang Tua</p>
-        <p id="studentName" class="text-lg font-bold text-[#1A365D] mt-0.5">[Nama Siswa]</p>
-      </div>
-
-      <p class="text-[11px] tracking-wide text-[#1A365D] mb-1">Dengan ini kami mengundang Bapak/Ibu pada:</p>
-
-      <div class="card-info">
-        <p class="font-bold text-lg text-[#1A365D]">Sabtu, 23 Mei 2026</p>
-        <p class="font-bold text-base text-[#C5A347] my-0.5">07.30 – 12.15 WIB</p>
-        <p class="text-xs font-bold text-[#D32F2F]">Siswa hadir pukul 06.30 WIB</p>
+      <!-- Konten dibungkus agar posisinya proporsional -->
+      <div class="content-wrapper">
+        <div class="text-wisuda">Wisuda</div>
         
-        <div class="w-20 h-[1px] bg-[#C5A347] mx-auto my-2.5"></div>
-        
-        <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Lokasi</p>
-        <p class="font-bold text-sm text-[#1A365D] mb-2">MPH SMA Plus Pembangunan Jaya</p>
-        
-        <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Dresscode</p>
-        <p class="font-bold text-sm text-[#1A365D]">Formal Batik</p>
-      </div>
+        <div class="text-sm tracking-wide leading-normal font-semibold mb-4 text-[#0A1D37]">
+          <p>SMA Plus Pembangunan Jaya</p>
+          <p>Angkatan XXVII Virentara</p>
+          <p>Tahun Ajaran 2025-2026</p>
+        </div>
 
-      <p class="font-bold text-[9px] text-[#0A1D37] tracking-[0.2em] mb-1 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
+        <div class="mb-2">
+          <p class="text-sm font-bold text-[#1A365D] uppercase tracking-wide">Yth. Bapak/Ibu Orang Tua</p>
+          <p id="studentName" class="text-lg font-bold text-[#1A365D] mt-0.5">[Nama Siswa]</p>
+        </div>
+
+        <p class="text-[11px] tracking-wide text-[#1A365D] mb-1">Dengan ini kami mengundang Bapak/Ibu pada:</p>
+
+        <div class="card-info">
+          <p class="font-bold text-lg text-[#1A365D]">Sabtu, 23 Mei 2026</p>
+          <p class="font-bold text-base text-[#C5A347] my-0.5">07.30 – 12.15 WIB</p>
+          <p class="text-xs font-bold text-[#D32F2F]">Siswa hadir pukul 06.30 WIB</p>
+          
+          <div class="w-20 h-[1px] bg-[#C5A347] mx-auto my-2.5"></div>
+          
+          <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Lokasi</p>
+          <p class="font-bold text-sm text-[#1A365D] mb-2">MPH SMA Plus Pembangunan Jaya</p>
+          
+          <p class="text-[10px] uppercase font-bold text-[#1A365D] opacity-60 tracking-widest">Dresscode</p>
+          <p class="font-bold text-sm text-[#1A365D]">Formal Batik</p>
+        </div>
+
+        <p class="font-bold text-[9px] text-[#0A1D37] tracking-[0.2em] mb-1 opacity-80">✦ UNDANGAN UNTUK 2 ORANG ✦</p>
+        <p class="font-bold text-[8.5px] text-[#0A1D37] tracking-[0.15em] mb-5 opacity-80 uppercase white-space-nowrap">✦ MOHON HADIR 15 MENIT SEBELUM ACARA ✦</p>
+      </div>
       
-      <p class="font-bold text-[8.5px] text-[#0A1D37] tracking-[0.15em] mb-5 opacity-80 uppercase white-space-nowrap">✦ MOHON HADIR 15 MENIT SEBELUM ACARA ✦</p>
-      
-      <button class="btn-gold" onclick="goToPage(1)">
+      <button class="btn-gold mt-auto" onclick="goToPage(1)">
         Susunan Acara <i data-lucide="chevron-right" class="ml-2 w-4 h-4 flex-shrink-0"></i>
       </button>
     </section>
 
+    <!-- PAGE 1 (Ditambahkan Logo di bagian Atas) -->
     <section class="page" id="page1">
-      <h2 class="mb-4 text-xl font-bold tracking-wider text-[#C5A347] uppercase">Susunan Acara</h2>
-      <div class="schedule-container">
-        <div class="schedule-item"><span class="schedule-time">07.30 – 08.00</span><span class="schedule-event">Pembukaan</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">08.00 – 08.10</span><span class="schedule-event">Doa</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">08.10 – 08.50</span><span class="schedule-event">Sambutan</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">08.50 – 09.30</span><span class="schedule-event">Pengumuman Prestasi</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">09.30 – 11.25</span><span class="schedule-event">Prosesi Wisuda</span><div class="schedule-divider"></div></div>
-        <div class="schedule-item"><span class="schedule-time">11.25 – 12.15</span><span class="schedule-event">Penutup</span></div>
+      <div class="flex justify-center items-center gap-4 mb-4 w-full max-w-sm flex-shrink-0">
+        <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
+        <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
       </div>
-      <div class="flex gap-3 mt-6">
+
+      <div class="content-wrapper">
+        <h2 class="mb-4 text-xl font-bold tracking-wider text-[#C5A347] uppercase">Susunan Acara</h2>
+        <div class="schedule-container">
+          <div class="schedule-item"><span class="schedule-time">07.30 – 08.00</span><span class="schedule-event">Pembukaan</span><div class="schedule-divider"></div></div>
+          <div class="schedule-item"><span class="schedule-time">08.00 – 08.10</span><span class="schedule-event">Doa</span><div class="schedule-divider"></div></div>
+          <div class="schedule-item"><span class="schedule-time">08.10 – 08.50</span><span class="schedule-event">Sambutan</span><div class="schedule-divider"></div></div>
+          <div class="schedule-item"><span class="schedule-time">08.50 – 09.30</span><span class="schedule-event">Pengumuman Prestasi</span><div class="schedule-divider"></div></div>
+          <div class="schedule-item"><span class="schedule-time">09.30 – 11.25</span><span class="schedule-event">Prosesi Wisuda</span><div class="schedule-divider"></div></div>
+          <div class="schedule-item"><span class="schedule-time">11.25 – 12.15</span><span class="schedule-event">Penutup</span></div>
+        </div>
+      </div>
+
+      <div class="flex gap-3 mt-auto">
         <button class="btn-outline" onclick="goToPage(0)">Kembali</button>
         <button class="btn-gold" onclick="goToPage(2)">Selesai</button>
       </div>
     </section>
 
+    <!-- PAGE 2 -->
     <section class="page" id="page2">
-      <div class="flex justify-center items-center gap-4 mb-6 w-full max-w-sm">
-        <img src="/logosekolah.png" class="h-10 w-auto object-contain flex-shrink-0">
-        <img src="/logoangkatan.png" class="h-14 w-auto object-contain flex-shrink-0">
+      <div class="flex justify-center items-center gap-4 mb-6 w-full max-w-sm flex-shrink-0">
+        <img src="/logosekolah.png" class="h-9 w-auto object-contain flex-shrink-0">
+        <img src="/logoangkatan.png" class="h-12 w-auto object-contain flex-shrink-0">
       </div>
-      <p class="tracking-wide text-base font-medium">Sampai jumpa di acara</p>
-      
-      <div class="text-wisuda">Wisuda</div>
-      
-      <div class="text-sm font-semibold tracking-wide leading-relaxed text-[#0A1D37] mt-2">
-        <p>SMA Plus Pembangunan Jaya</p>
-        <p>Angkatan XXVII Virentara</p>
-        <p>Tahun Ajaran 2025-2026</p>
+
+      <div class="content-wrapper">
+        <p class="tracking-wide text-base font-medium">Sampai jumpa di acara</p>
+        <div class="text-wisuda">Wisuda</div>
+        
+        <div class="text-sm font-semibold tracking-wide leading-relaxed text-[#0A1D37] mt-2">
+          <p>SMA Plus Pembangunan Jaya</p>
+          <p>Angkatan XXVII Virentara</p>
+          <p>Tahun Ajaran 2025-2026</p>
+        </div>
       </div>
-      <button class="btn-gold mt-10" onclick="goToPage(0)">Kembali Ke Awal</button>
+
+      <button class="btn-gold mt-auto" onclick="goToPage(0)">Kembali Ke Awal</button>
     </section>
   </main>
 
